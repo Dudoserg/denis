@@ -27,3 +27,7 @@ C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\System.Data.SQLite.EF6.
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\System.Data.SQLite.xml
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Form_createClient.g.cs
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Form_createClient.baml
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Form_clients.g.cs
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Form_clients.baml

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2.Forms;
 
 namespace WpfApp2
 {
@@ -21,22 +22,38 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        ApplicationContext db;
+        //ApplicationContext db;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            db = new ApplicationContext();
-            db.Phones.Load();
+            //db = new ApplicationContext();
+            //db.Phones.Load();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach( Phone tmp in db.Phones)
-            {
-                Console.WriteLine(tmp.Title);
-            }
+            //foreach( Phone tmp in db.Phones)
+            //{
+            //    Console.WriteLine(tmp.Title);
+            //}
+        }
+
+        private void MenuItem_clients_click(object sender, RoutedEventArgs e)
+        {
+            Form_createClient form = new Form_createClient();
+
+            form.Owner = this;
+            form.ShowDialog();
+        }
+
+        private void MenuItem_2_click(object sender, RoutedEventArgs e)
+        {
+            Form_clients form = new Form_clients();
+
+            form.Owner = this;
+            form.ShowDialog();
         }
     }
 }

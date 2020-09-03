@@ -8,6 +8,20 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Button" HorizontalAlignment="Left" Margin="129,56,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Menu x:Name="Menu" VerticalAlignment="Top" Height="20">
+            <MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_clients_click" >
+                <MenuItem.Header >
+                    <TextBlock Text="Clients" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_2_click" >
+                <MenuItem.Header >
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Add Client"/><InlineUIContainer>
+                            <DataGrid Height="100" Width="100"/>
+                        </InlineUIContainer></TextBlock>
+                </MenuItem.Header>
+            </MenuItem>
+        </Menu>
 
     </Grid>
 </Window>

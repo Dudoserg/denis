@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\App.xaml
-11151548125
+31660545727
 1-1805881208
-8555353131
+10867542972
 201278306797
-MainWindow.xaml;
+Forms\Form_clients.xaml;Forms\Form_createClient.xaml;MainWindow.xaml;
 
 True
 
