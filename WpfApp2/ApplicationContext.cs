@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp2.Entity;
+
 
 namespace WpfApp2
 {
@@ -24,7 +25,7 @@ namespace WpfApp2
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
         {
-            optionbuilder.UseSqlite(@"Data Source=d:\Sample.db");
+            optionbuilder.UseSqlite(@"Data Source=.\db.db");
         }
 
         //public ApplicationContext() : base("DefaultConnection")
