@@ -28,5 +28,20 @@ namespace WpfApp2.Forms
         {
 
         }
+
+        private void Button_(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_createClient_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_findClient_click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

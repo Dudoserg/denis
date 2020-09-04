@@ -9,17 +9,17 @@
     <Grid>
         <Label x:Name="Label_passport" Content="Паспорт" HorizontalAlignment="Left" Margin="48,22,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextBox_passport" HorizontalAlignment="Left" Height="23" Margin="118,25,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
-        <Label x:Name="Label_firstName" Content="Фамилия" HorizontalAlignment="Left" Margin="48,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_firstName" HorizontalAlignment="Left" Height="23" Margin="118,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
-        <Label x:Name="Label_secondName" Content="Имя" HorizontalAlignment="Left" Margin="48,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.03,0.462"/>
-        <TextBox x:Name="TextBox_secondName" HorizontalAlignment="Left" Height="23" Margin="118,108,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
+        <Label x:Name="Label_secondName1" Content="Фамилия" HorizontalAlignment="Left" Margin="48,63,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_secondName1" HorizontalAlignment="Left" Height="23" Margin="118,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
+        <Label x:Name="Label_firstName" Content="Имя" HorizontalAlignment="Left" Margin="48,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.03,0.462"/>
+        <TextBox x:Name="TextBox_firstName" HorizontalAlignment="Left" Height="23" Margin="118,108,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
         <Label x:Name="Label_patronymic" Content="Отчество" HorizontalAlignment="Left" Margin="48,142,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextBox_patronymic" HorizontalAlignment="Left" Height="23" Margin="118,145,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
         <DatePicker x:Name="DataPicker_birthday" HorizontalAlignment="Left" Margin="402,22,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Label_birthday" Content="Дата рождения" HorizontalAlignment="Left" Margin="302,22,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextBox_phone" HorizontalAlignment="Left" Height="23" Margin="372,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="130"/>
         <Label x:Name="Label_phone" Content="Телефон" HorizontalAlignment="Left" Margin="302,60,0,0" VerticalAlignment="Top"/>
-        <Button Content="Добавить клиента" HorizontalAlignment="Left" Margin="48,202,0,0" VerticalAlignment="Top" Width="200"/>
+        <Button x:Name="Button_createClient" Content="Добавить клиента" HorizontalAlignment="Left" Margin="48,202,0,0" VerticalAlignment="Top" Width="200" Click="Button_createClient_click"/>
 
     </Grid>
 </Window>

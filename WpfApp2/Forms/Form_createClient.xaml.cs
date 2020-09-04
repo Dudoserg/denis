@@ -23,5 +23,10 @@ namespace WpfApp2.Forms
         {
             InitializeComponent();
         }
+
+        private void Button_createClient_click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
