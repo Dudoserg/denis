@@ -126,7 +126,7 @@ namespace WpfApp2.Forms
         }
 
         // обновляем таблицу 
-        public void updateAfterAdd()
+        public void updateDataGrid()
         {
             db.Clients.Load();
 
@@ -154,19 +154,19 @@ namespace WpfApp2.Forms
             {
                 bool isAdding = true;
 
-                if(findPassport.Length != 0 && client.Passport.IndexOf(findPassport) == -1)
+                if(findPassport.Length != 0 && client.Passport.ToLower().IndexOf(findPassport.ToLower()) == -1)
                     isAdding = false;
 
-                if (findFirstName.Length != 0 && client.FirstName.IndexOf(findFirstName) == -1)
+                if (findFirstName.Length != 0 && client.FirstName.ToLower().IndexOf(findFirstName.ToLower()) == -1)
                     isAdding = false;
 
-                if (findSecondName.Length != 0 && client.SecondName.IndexOf(findSecondName) == -1)
+                if (findSecondName.Length != 0 && client.SecondName.ToLower().IndexOf(findSecondName.ToLower()) == -1)
                     isAdding = false;
 
-                if (findPatronymic.Length != 0 && client.Patronymic.IndexOf(findPatronymic) == -1)
+                if (findPatronymic.Length != 0 && client.Patronymic.ToLower().IndexOf(findPatronymic.ToLower()) == -1)
                     isAdding = false;
 
-                if (findPhone.Length != 0 && client.Phone.IndexOf(findPhone) == -1)
+                if (findPhone.Length != 0 && client.Phone.ToLower().IndexOf(findPhone.ToLower()) == -1)
                     isAdding = false;
 
                 if(isAdding)
@@ -199,7 +199,7 @@ namespace WpfApp2.Forms
         private void Button_editRow_click(object sender, RoutedEventArgs e)
         {
             Clients client = ((FrameworkElement)sender).DataContext as Clients;
-            Console.WriteLine("clicked row  id = " + client.Id);
+            Console.WriteLine("clicked edit row  id = " + client.Id);
 
             Form_createClient form = new Form_createClient(client);
             form.Owner = this;
@@ -209,7 +209,11 @@ namespace WpfApp2.Forms
         private void Button_delRow_click(object sender, RoutedEventArgs e)
         {
             Clients client = ((FrameworkElement)sender).DataContext as Clients;
-            Console.WriteLine("clicked row id = " + client.Id);
+            Console.WriteLine("clicked delete row id = " + client.Id);
+            db.Clients.Remove(client);
+            db.SaveChanges();
+
+            this.updateDataGrid();
         }
 
         private void Button_resetFilter_click(object sender, RoutedEventArgs e)

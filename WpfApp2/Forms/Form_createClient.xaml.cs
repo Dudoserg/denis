@@ -99,7 +99,7 @@ namespace WpfApp2.Forms
                 db.Clients.Add(client);
                 db.SaveChanges();
 
-                ((Form_clients)this.Owner).updateAfterAdd();
+                ((Form_clients)this.Owner).updateDataGrid();
 
                 this.Close();
             }
@@ -167,7 +167,7 @@ namespace WpfApp2.Forms
                     db.SaveChanges();
                 }
                 // обновляем таблицу на родительской форме
-                ((Form_clients)this.Owner).updateAfterAdd();
+                ((Form_clients)this.Owner).updateDataGrid();
 
                 // закрываем текущую форму
                 this.Close();
