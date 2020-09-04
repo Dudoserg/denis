@@ -22,14 +22,14 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        //ApplicationContext db;
+        ApplicationContext db;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //db = new ApplicationContext();
-            //db.Phones.Load();
+           db = new ApplicationContext();
+           db.Phones.Load();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

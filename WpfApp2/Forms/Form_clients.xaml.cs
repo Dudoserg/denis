@@ -36,7 +36,10 @@ namespace WpfApp2.Forms
 
         private void Button_createClient_click(object sender, RoutedEventArgs e)
         {
+            Form_createClient form = new Form_createClient();
 
+            form.Owner = this;
+            form.ShowDialog();
         }
 
         private void Button_findClient_click(object sender, RoutedEventArgs e)

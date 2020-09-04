@@ -94,6 +94,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Entity\Clients.cs" />
     <Compile Include="Forms\Form_clients.xaml.cs">
       <DependentUpon>Form_clients.xaml</DependentUpon>
     </Compile>
