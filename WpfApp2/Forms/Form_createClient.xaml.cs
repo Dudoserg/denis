@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.Entity;
 using WpfApp2.Entity;
+using System.Linq;
 
 namespace WpfApp2.Forms
 {
@@ -22,11 +22,15 @@ namespace WpfApp2.Forms
     public partial class Form_createClient : Window
     {
         ApplicationContext db;
-        public Form_createClient()
+        Clients client;
+        public Form_createClient(Clients client)
         {
+            this.client = client;
             InitializeComponent();
 
+            // создаем контекст базы данных
             db = new ApplicationContext();
+            // подгружаемм данные
             db.Clients.Load();
 
             //List<Clients> clientsList = new List<Clients> { };
@@ -35,21 +39,139 @@ namespace WpfApp2.Forms
             //{
             //    clientsList.Add(client);
             //}
+
+            if(client != null)
+            {
+                Button_createClient.Content = "Изменить";
+                this.Title = "Изменение информации о клиенте";
+                TextBox_passport.Text = client.Passport;
+                TextBox_firstName.Text = client.FirstName;
+                TextBox_secondName.Text = client.SecondName;
+                TextBox_patronymic.Text = client.Patronymic;
+                TextBox_phone.Text = client.Phone;
+            }
         }
 
         private void Button_createClient_click(object sender, RoutedEventArgs e)
         {
-            string passport = TextBox_passport.Text;
-            string firstName = TextBox_firstName.Text;
-            string secondName = TextBox_secondName.Text;
-            string patronymic = TextBox_patronymic.Text;
-            string phone = TextBox_phone.Text;
+            // создаем нового пользователя
+            if (this.client == null)
+            {
+                string passport = TextBox_passport.Text;
 
-            Clients client = new Clients(passport, firstName, secondName, patronymic, phone);
-            db.Clients.Add(client);
-            db.SaveChanges();
+                List<Clients> phones = db.Clients.Where(c => c.Passport == passport).ToList();
+                if (phones.Count != 0)
+                {
+                    MessageBox.Show("Клиент с пасспортом '" + passport + "' уже существует");
+                    return;
+                }
+                if (passport.Length < 5)
+                {
+                    MessageBox.Show("длина номера паспорта не может быть меньше 5 символов!");
+                    return;
+                }
 
-            this.Close();
+                string firstName = TextBox_firstName.Text;
+                if (passport.Length < 2)
+                {
+                    MessageBox.Show("Укажите Имя");
+                    return;
+                }
+
+                string secondName = TextBox_secondName.Text;
+                if (passport.Length < 2)
+                {
+                    MessageBox.Show("Укажите Фамилию");
+                    return;
+                }
+
+                string patronymic = TextBox_patronymic.Text;
+
+                string phone = TextBox_phone.Text;
+                if (passport.Length < 3)
+                {
+                    MessageBox.Show("Укажите номер телефона( не менее 3 символов )");
+                    return;
+                }
+
+
+                Clients client = new Clients(passport, firstName, secondName, patronymic, phone);
+                db.Clients.Add(client);
+                db.SaveChanges();
+
+                ((Form_clients)this.Owner).updateAfterAdd();
+
+                this.Close();
+            }
+            else
+            {
+                // редактируем существующего
+
+                // верификация данных
+                string passport = TextBox_passport.Text;
+
+                // получаем из базы клиентов, у которых паспорт равен введенному в форме
+                List<Clients> clients = db.Clients.Where(c => c.Passport == passport).ToList();
+                // Если такие клиенты есть ( не считая текущего переданного ), значит ошибка
+                if (clients.Count != 0 && client.Passport != passport)
+                {
+                    MessageBox.Show("Клиент с пасспортом '" + passport + "' уже существует");
+                    return;
+                }
+                if(passport.Length < 5)
+                {
+                    MessageBox.Show("длина номера паспорта не может быть меньше 5 символов!");
+                    return;
+                }
+
+                string firstName = TextBox_firstName.Text;
+                if (passport.Length < 2)
+                {
+                    MessageBox.Show("Укажите Имя");
+                    return;
+                }
+
+                string secondName = TextBox_secondName.Text;
+                if (passport.Length < 2)
+                {
+                    MessageBox.Show("Укажите Фамилию");
+                    return;
+                }
+
+                string patronymic = TextBox_patronymic.Text;
+
+                string phone = TextBox_phone.Text;
+                if (passport.Length < 3)
+                {
+                    MessageBox.Show("Укажите номер телефона( не менее 3 символов )");
+                    return;
+                }
+
+                client.Passport = passport;
+                client.FirstName = firstName;
+                client.SecondName = secondName;
+                client.Patronymic = patronymic;
+                client.Phone = phone;
+
+                // обновление записи в бд
+                using (var db = new ApplicationContext())
+                {
+                    db.Clients.Attach(client);
+
+                    db.Entry(client).Property(x => x.Passport).IsModified = true;
+                    db.Entry(client).Property(x => x.FirstName).IsModified = true;
+                    db.Entry(client).Property(x => x.SecondName).IsModified = true;
+                    db.Entry(client).Property(x => x.Patronymic).IsModified = true;
+                    db.Entry(client).Property(x => x.Phone).IsModified = true;
+
+                    db.SaveChanges();
+                }
+                // обновляем таблицу на родительской форме
+                ((Form_clients)this.Owner).updateAfterAdd();
+
+                // закрываем текущую форму
+                this.Close();
+            }
         }
     }
 }

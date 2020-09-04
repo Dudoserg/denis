@@ -42,7 +42,7 @@ namespace WpfApp2
 
         private void MenuItem_clients_click(object sender, RoutedEventArgs e)
         {
-            Form_createClient form = new Form_createClient();
+            Form_createClient form = new Form_createClient(null);
 
             form.Owner = this;
             form.ShowDialog();

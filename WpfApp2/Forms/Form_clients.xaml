@@ -12,7 +12,34 @@
             <ColumnDefinition Width="511*"/>
             <ColumnDefinition Width="198*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="DataGrid_clients" Margin="0,0,0,50" Grid.ColumnSpan="2"/>
+        <DataGrid 
+            x:Name="DataGrid_clients" 
+            ItemsSource="{Binding clientsList}" 
+            AutoGenerateColumns="False"
+            Margin="0,0,0,50" Grid.ColumnSpan="2" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="10*" />
+                <DataGridTextColumn Header="Паспорт" Binding="{Binding Path=Passport}" Width="15*" />
+                <DataGridHyperlinkColumn Header="Имя" Binding="{Binding Path=FirstName}" Width="20*" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=SecondName}"  Width="20*" />
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}" Width="20*" />
+                <DataGridTextColumn Header="Номер" Binding="{Binding Path=Phone}"  Width="20*" />
+                <DataGridTemplateColumn Width="10*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="Button_editRow" Click="Button_editRow_click">edit</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="10*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="Button_delRow" Click="Button_delRow_click">del</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <Grid Grid.Column="2"  UseLayoutRounding="False">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="15*"></RowDefinition>
@@ -27,7 +54,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="10*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label x:Name="Label_findTitle" Grid.Row="0" Content="Критерии поиска"  VerticalAlignment="Center"  HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                <Label x:Name="Label_findTitle" Grid.Row="0" Content="Критерии поиска"  VerticalAlignment="Center"  HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="10,8,60,10"/>
+                <Button x:Name="Button_resetFilter" Content="X" HorizontalAlignment="Right" Margin="143,13,20,0" VerticalAlignment="Top" Width="27" FontWeight="Bold" Click="Button_resetFilter_click"/>
             </Grid>
             <Rectangle Grid.Row="0" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Rectangle Grid.Row="1" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
@@ -41,7 +69,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_passport" Grid.Row="0" Content="Паспорт" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_passport" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findPassport" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
@@ -49,7 +77,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_secondName" Grid.Row="0" Content="Фамилия" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_secondName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findSecondName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
             </Grid>
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
@@ -57,7 +85,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_firstName" Grid.Row="0" Content="Имя" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_firstName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findFirstName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
             </Grid>
             <Grid Grid.Row="4">
                 <Grid.RowDefinitions>
@@ -65,7 +93,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_patronymic" Grid.Row="0" Content="Отчество" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_patronymic" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findPatronymic" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
             </Grid>
             <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
@@ -73,17 +101,18 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_phone" Grid.Row="0" Content="Телефон" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_phone" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findPhone" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
             </Grid>
             <Grid Grid.Row="6">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="10*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button x:Name="Button_findClient" Content="Find" Padding="1" ScrollViewer.CanContentScroll="True" Margin="10" Click="Button_findClient_click"></Button>
+                <Button x:Name="Button_findClient" Content="Поиск" Padding="1" ScrollViewer.CanContentScroll="True" Margin="10" Click="Button_findClient_click"></Button>
             </Grid>
 
         </Grid>
         <Button x:Name="Button_createClient" Content="Добавить клиента" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="140" Click="Button_createClient_click" Height="35" Grid.ColumnSpan="2"/>
+        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="313,388,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 
     </Grid>
 </Window>
