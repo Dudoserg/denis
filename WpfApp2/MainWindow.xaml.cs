@@ -41,14 +41,17 @@ namespace WpfApp2
             //}
         }
 
+
+
         private void MenuItem_clients_click(object sender, RoutedEventArgs e)
         {
-            Form_createClient form = new Form_createClient(null);
-
-            form.Owner = this;
-            form.ShowDialog();
+            //Form_createClient form = new Form_createClient(null);
+            //
+            //form.Owner = this;
+            //form.ShowDialog();
         }
 
+        // кнопка меню клиенты
         private void MenuItem_2_click(object sender, RoutedEventArgs e)
         {
             Form_clients form = new Form_clients();
@@ -56,13 +59,30 @@ namespace WpfApp2
             form.Owner = this;
             form.ShowDialog();
         }
-
+        // кнопка меню комнаты
         private void MenuItem_rooms_click(object sender, RoutedEventArgs e)
         {
             Form_rooms form = new Form_rooms();
 
             form.Owner = this;
             form.ShowDialog();
+        }
+
+        // кнопка выйти подменю программы
+        private void MenuItem_programExit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        // кнопка меню оформить заказ
+        private void MenuItem_createOrder_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        // кнопка меню справка
+        private void MenuItem_info_click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("created By ...");
         }
     }
 }

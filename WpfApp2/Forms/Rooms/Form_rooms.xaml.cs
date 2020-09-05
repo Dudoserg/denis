@@ -74,11 +74,13 @@ namespace WpfApp2.Forms.Rooms
             }
         
             DataGrid_rooms.ItemsSource = roomsList;
+
+            findRowsByFilter();
         }
 
         private void Button_createRoom_click(object sender, RoutedEventArgs e)
         {
-            Form_createRoom form = new Form_createRoom();
+            Form_createRoom form = new Form_createRoom(null);
 
             form.Owner = this;
             form.ShowDialog();
@@ -126,7 +128,12 @@ namespace WpfApp2.Forms.Rooms
 
         private void Button_editRow_click(object sender, RoutedEventArgs e)
         {
+            Entity.Rooms room = ((FrameworkElement)sender).DataContext as Entity.Rooms;
+            Console.WriteLine("clicked edit row  id = " + room.Id);
 
+            Form_createRoom form = new Form_createRoom(room);
+            form.Owner = this;
+            form.ShowDialog();
         }
 
         private void Button_delRow_click(object sender, RoutedEventArgs e)

@@ -14,6 +14,16 @@
                     <TextBlock Text="Clients" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </MenuItem.Header>
             </MenuItem>-->
+            <MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <MenuItem.Header >
+                    <TextBlock Text="Программа" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </MenuItem.Header>
+                <MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_programExit" >
+                    <MenuItem.Header >
+                        <TextBlock Text="Выход" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
             <MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_2_click" >
                 <MenuItem.Header >
                     <TextBlock Text="Клиенты" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -22,6 +32,16 @@
             <MenuItem x:Name="MenuItem_rooms"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_rooms_click" >
                 <MenuItem.Header >
                     <TextBlock Text="Номера" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem x:Name="MenuItem_createOrder"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_createOrder_click" >
+                <MenuItem.Header >
+                    <TextBlock Text="Оформить заказ" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem x:Name="MenuItem_info"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_info_click" >
+                <MenuItem.Header >
+                    <TextBlock Text="Справка" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
