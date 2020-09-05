@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp2.Forms;
+using WpfApp2.Forms.Order;
 using WpfApp2.Forms.Rooms;
 
 namespace WpfApp2
@@ -29,8 +30,24 @@ namespace WpfApp2
         {
             InitializeComponent();
 
-           db = new ApplicationContext();
-           db.Phones.Load();
+            db = new ApplicationContext();
+            db.Phones.Load();
+
+            DateTime now = DateTime.Now;
+
+
+
+
+            Calendar.BlackoutDates.Add(
+                new CalendarDateRange(new DateTime(2020, 9, 1), new DateTime(2020, 9, 8))
+            );
+            Calendar.SelectionMode = CalendarSelectionMode.MultipleRange;
+
+
+            Calendar.DisplayDateStart = new DateTime(now.Year, now.Month, 1);
+
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -77,7 +94,10 @@ namespace WpfApp2
         // кнопка меню оформить заказ
         private void MenuItem_createOrder_click(object sender, RoutedEventArgs e)
         {
+            Form_createOrder form = new Form_createOrder();
 
+            form.Owner = this;
+            form.ShowDialog();
         }
         // кнопка меню справка
         private void MenuItem_info_click(object sender, RoutedEventArgs e)

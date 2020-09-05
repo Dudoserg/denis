@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\App.xaml
-51030743989
+6-350545342
 6-1462418706
-16-1781140436
+171411961436
 168-2100218772
-Forms\Form_clients.xaml;Forms\Form_createClient.xaml;Forms\Rooms\Form_createRoom.xaml;Forms\Rooms\Form_rooms.xaml;MainWindow.xaml;
+Forms\Form_clients.xaml;Forms\Form_createClient.xaml;Forms\Order\Form_createOrder.xaml;Forms\Rooms\Form_createRoom.xaml;Forms\Rooms\Form_rooms.xaml;MainWindow.xaml;
 
 False
 

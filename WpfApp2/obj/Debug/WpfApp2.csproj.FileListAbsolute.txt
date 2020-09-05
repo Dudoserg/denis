@@ -111,3 +111,5 @@ C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Rooms\Form_create
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Rooms\Form_rooms.g.cs
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Rooms\Form_createRoom.baml
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Rooms\Form_rooms.baml
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Order\Form_createOrder.g.cs
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Order\Form_createOrder.baml

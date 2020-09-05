@@ -322,6 +322,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Entity\Rooms.cs" />
+    <Compile Include="Forms\Order\Form_createOrder.xaml.cs">
+      <DependentUpon>Form_createOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Rooms\Form_createRoom.xaml.cs">
       <DependentUpon>Form_createRoom.xaml</DependentUpon>
     </Compile>
@@ -335,6 +338,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Form_createClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Order\Form_createOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

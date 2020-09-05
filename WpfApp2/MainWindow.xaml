@@ -45,6 +45,10 @@
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
+        <Calendar x:Name="Calendar" HorizontalAlignment="Left" Margin="291,35,0,0" VerticalAlignment="Top">
+            
+        </Calendar>
+        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="129,96,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
