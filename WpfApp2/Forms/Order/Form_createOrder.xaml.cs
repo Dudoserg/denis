@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace WpfApp2.Forms.Order
         ApplicationContext db;
         List<Entity.Rooms> roomsList;
         List<Entity.RoomTypes> roomTypesList;
+        List<Entity.Clients> clientsList;
+
         string emptyComboBoxItem = "--\\--";
 
         public Form_createOrder()
@@ -36,6 +39,7 @@ namespace WpfApp2.Forms.Order
 
             roomTypesList = init_RoomTypes();
             roomsList = init_Rooms();
+            clientsList = init_Clients();
 
             // инициализируем комбобокс с выбором типа комнаты
             ComboBox_roomType.Items.Add(emptyComboBoxItem);
@@ -49,6 +53,8 @@ namespace WpfApp2.Forms.Order
             Entity.Rooms.initComboboxSize(Combobox_size);
 
             updateDataGridRooms();
+
+            updateDataGridClients();
         }
 
         public List<RoomTypes> init_RoomTypes()
@@ -71,6 +77,14 @@ namespace WpfApp2.Forms.Order
             }
             return tmpList;
         }
+        public List<Entity.Clients> init_Clients()
+        {
+            // создаем репозиторий комнат, для работы с бд
+            db.Clients.Load();
+            EFGenericRepository<Entity.Clients> clientsRepo = new EFGenericRepository<Entity.Clients>(db);
+            List<Entity.Clients> tmpList = (List<Entity.Clients>)clientsRepo.Get();
+            return tmpList;
+        }
 
         // Фильтруем доступные комнаты по фильтру
         private void findRoomsByFilter()
@@ -81,11 +95,13 @@ namespace WpfApp2.Forms.Order
             int find_priceTo = TextBox_priceTo.Text == "" ? Int32.MaxValue : Int32.Parse(TextBox_priceTo.Text);
             int find_size = Combobox_size.SelectedIndex > -1 ? (int)Combobox_size.SelectedItem : -1;
 
-            db.Clients.Load();
 
             roomsList = new List<Entity.Rooms> { };
 
-            foreach (Entity.Rooms room in db.Rooms)
+            List<Entity.Rooms> tmp_roomsList = init_Rooms();
+            tmp_roomsList = init_Rooms();
+
+            foreach (Entity.Rooms room in tmp_roomsList)
             {
                 bool isAdding = true;
 
@@ -166,16 +182,124 @@ namespace WpfApp2.Forms.Order
             MessageBox.Show("double click #" + selectedRoom.Price);
             Label_reservedTitle.Content = "Комната №" + selectedRoom.Number + "\tтип: " + selectedRoom.Type;
         }
+
+        private void TextBox_priceFrom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRoomsByFilter();
+        }
+        private void TextBox_priceTo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRoomsByFilter();
+        }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// Clients
         private void Button_resetClientFilter_Click(object sender, RoutedEventArgs e)
         {
-
+            TextBox_passport.Text = "";
+            TextBox_firstName.Text = "";
+            TextBox_secondName.Text = "";
+            TextBox_patronymic.Text = "";
+            TextBox_phone.Text = "";
+            findClientsByFilter();
         }
 
-        private void Button_findClient_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void findClientsByFilter()
+        {
+            string findPassport = TextBox_passport.Text;
+            string findFirstName = TextBox_firstName.Text;
+            string findSecondName = TextBox_secondName.Text;
+            string findPatronymic = TextBox_patronymic.Text;
+            string findPhone = TextBox_phone.Text;
+
+            db.Clients.Load();
+
+            clientsList = new List<Clients> { };
+            foreach (Clients client in db.Clients)
+            {
+                bool isAdding = true;
+
+                if (findPassport.Length != 0 && client.Passport.ToLower().IndexOf(findPassport.ToLower()) == -1)
+                    isAdding = false;
+
+                if (findFirstName.Length != 0 && client.FirstName.ToLower().IndexOf(findFirstName.ToLower()) == -1)
+                    isAdding = false;
+
+                if (findSecondName.Length != 0 && client.SecondName.ToLower().IndexOf(findSecondName.ToLower()) == -1)
+                    isAdding = false;
+
+                if (findPatronymic.Length != 0 && client.Patronymic.ToLower().IndexOf(findPatronymic.ToLower()) == -1)
+                    isAdding = false;
+
+                if (findPhone.Length != 0 && client.Phone.ToLower().IndexOf(findPhone.ToLower()) == -1)
+                    isAdding = false;
+
+                if (isAdding)
+                    clientsList.Add(client);
+            }
+            DataGrid_clients.ItemsSource = clientsList;
+
+            // проверяем, чтобы пользователя с таким паспортом не было, т.к. паспорт должен быть уникален
+            Clients tmp_client = db.Clients.Where(c => c.Passport.Contains(findPassport) ).FirstOr(null);
+            if (tmp_client != null && clientsList.Count == 0)
+            {
+                Label_statusClients.Content = "Клиент с таким паспортом, но c другими данными, уже существуе";
+            }
+            else
+            {
+                Label_statusClients.Content = "Клиент будет добавлен в базу";
+            }
+            
+        }
+        public void updateDataGridClients()
+        {
+            db = new ApplicationContext();
+
+            clientsList = init_Clients();
+
+            DataGrid_clients.ItemsSource = clientsList;
+
+            findClientsByFilter();
+        }
+
+        private void TextBox_passport_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClientsByFilter();
+        }
+
+        private void TextBox_firstName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClientsByFilter();
+        }
+
+        private void TextBox_secondName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClientsByFilter();
+        }
+
+        private void TextBox_patronymic_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClientsByFilter();
+        }
+
+        private void TextBox_phone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClientsByFilter();
+        }
+
+        private void DataGrid_clients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Clients selectedClient = (Clients)DataGrid_clients.SelectedItem;
+            MessageBox.Show("double click #" + selectedClient.Passport);
+
+            Label_statusClients.Content = "Клиент выбран из базы";
+
+            TextBox_passport.Text = selectedClient.Passport;
+            TextBox_firstName.Text = selectedClient.FirstName;
+            TextBox_secondName.Text = selectedClient.SecondName;
+            TextBox_patronymic.Text = selectedClient.Patronymic;
+            TextBox_phone.Text = selectedClient.Phone;
         }
     }
 }
