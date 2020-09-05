@@ -15,6 +15,9 @@ namespace WpfApp2.Entity
 
         private string type;
 
+        public List<Rooms> Rooms { get; set; }
+
+
         public RoomTypes(string type)
         {
             this.type = type;
@@ -22,7 +25,6 @@ namespace WpfApp2.Entity
 
         public RoomTypes()
         {
-
         }
 
         public string Type

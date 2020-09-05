@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,53 +15,31 @@ namespace WpfApp2.Entity
     {
         private static int MAX_ROOM_SIZE = 6;
 
-        public int Id { get; set; }
-
-        private RoomTypes type;
-
-        private int size;
-
-        private int  price;
-
-        public Rooms(RoomTypes type, int size, int price)
+        public Rooms( int size, int price)
         {
-            this.type = type;
-            this.size = size;
-            this.price = price;
+            //this.type = type;
+            this.Size = size;
+            this.Price = price;
         }
 
         public Rooms()
         {
         }
 
-        public RoomTypes Type
+        public int Id { get; set; }
+
+        public int? TypeId { get; set; }      // внешний ключ
+        public RoomTypes Type { get; set; }
+        public int Size { get; set; }
+        public int Price { get; set; }
+        public int Number { get; set; }
+
+        public void customInit(DbSet<RoomTypes> dbSet)
         {
-            get { return type; }
-            set
-            {
-                type = value;
-                OnPropertyChanged("Type");
-            }
+            RoomTypes tmp_roomType = dbSet.Where(c => c.Id == this.TypeId).ToList()[0];
+            this.Type = tmp_roomType;
         }
 
-        public int Size
-        {
-            get { return size; }
-            set
-            {
-                size = value;
-                OnPropertyChanged("Size");
-            }
-        }
-        public int Price
-        {
-            get { return price; }
-            set
-            {
-                price = value;
-                OnPropertyChanged("Price");
-            }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -76,5 +56,6 @@ namespace WpfApp2.Entity
                 c.Items.Add(i);
             }
         }
+      
     }
 }

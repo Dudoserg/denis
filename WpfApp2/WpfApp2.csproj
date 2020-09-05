@@ -322,8 +322,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Entity\Rooms.cs" />
-    <Compile Include="Forms\F_Rooms\Form_createRoom.xaml.cs">
+    <Compile Include="Forms\Rooms\Form_createRoom.xaml.cs">
       <DependentUpon>Form_createRoom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Rooms\Form_rooms.xaml.cs">
+      <DependentUpon>Form_rooms.xaml</DependentUpon>
     </Compile>
     <Compile Include="Repos\EFGenericRepository.cs" />
     <Compile Include="Repos\IGenericRepository.cs" />
@@ -335,11 +338,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\F_Rooms\Form_createRoom.xaml">
+    <Page Include="Forms\Rooms\Form_createRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\F_Rooms\Form_rooms.xaml">
+    <Page Include="Forms\Rooms\Form_rooms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -359,9 +362,6 @@
     </Compile>
     <Compile Include="Forms\Form_createClient.xaml.cs">
       <DependentUpon>Form_createClient.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\F_Rooms\Form_rooms.xaml.cs">
-      <DependentUpon>Form_rooms.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -12,6 +12,7 @@ namespace WpfApp2
     {
         public ApplicationContext() : base("DefaultConnection")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
         public DbSet<Phone> Phones { get; set; }
 
@@ -20,6 +21,13 @@ namespace WpfApp2
         public DbSet<RoomTypes> RoomTypes { get; set; }
         public DbSet<Rooms> Rooms { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Rooms>()
+            .HasOptional(p => p.Type)
+            .WithMany(b => b.Rooms)
+            .HasForeignKey( r => r.TypeId);
+        }
 
         public void kek()
         {

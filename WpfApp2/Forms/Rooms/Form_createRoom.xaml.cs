@@ -32,15 +32,18 @@ namespace WpfApp2.Forms.Rooms
 
             db = new ApplicationContext();
 
-            // создаем репозиторий комнат, для работы с бд
-            db.Rooms.Load();
-            EFGenericRepository<Entity.Rooms> roomsRepo = new EFGenericRepository<Entity.Rooms>(db);
-            roomsList = (List<Entity.Rooms>)roomsRepo.Get();
 
             // создаем репозиторий типов комнат, для работы с бд
             db.RoomTypes.Load();
             EFGenericRepository<Entity.RoomTypes> roomTypesRepo = new EFGenericRepository<Entity.RoomTypes>(db);
             roomTypesList = (List<Entity.RoomTypes>)roomTypesRepo.Get();
+
+            // создаем репозиторий комнат, для работы с бд
+            db.Rooms.Load();
+            EFGenericRepository<Entity.Rooms> roomsRepo = new EFGenericRepository<Entity.Rooms>(db);
+            roomsList = (List<Entity.Rooms>)roomsRepo.Get();
+
+
 
             // инициализируем комбобокс с выбором типа комнаты
             foreach( RoomTypes type in roomTypesList)
@@ -51,10 +54,36 @@ namespace WpfApp2.Forms.Rooms
             // Инициализируем комбобокс выбора размера комнаты значениями
             Entity.Rooms.initComboboxSize(Combobox_size);
 
+
+            RoomTypes asdf = roomsList[0].Type;
+
+           
+
         }
 
         private void Button_createRoom_click(object sender, RoutedEventArgs e)
         {
+            int price = Int32.Parse(TextBox_price.Text);
+
+            int size = (int)Combobox_size.SelectedItem;
+
+            int number = Int32.Parse(TextBox_number.Text);
+
+            RoomTypes roomType = (RoomTypes)Combobox_roomType.SelectedItem;
+
+            Entity.Rooms room = new Entity.Rooms();
+            room.Price = price;
+            room.Size = size;
+            room.TypeId = roomType.Id;
+            room.Number = number;
+
+            db.Rooms.Add(room);
+            db.SaveChanges();
+
+
+            ((Form_rooms)this.Owner).updateDataGrid();
+
+            this.Close();
 
         }
 

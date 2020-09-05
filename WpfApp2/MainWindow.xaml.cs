@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp2.Forms;
+using WpfApp2.Forms.Rooms;
 
 namespace WpfApp2
 {
