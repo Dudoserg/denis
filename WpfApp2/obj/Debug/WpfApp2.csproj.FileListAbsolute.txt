@@ -107,3 +107,7 @@ C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\Microsoft.DotNet.Platfo
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\Microsoft.Extensions.DependencyModel.xml
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\bin\Debug\System.Linq.Async.xml
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Form_rooms.g.cs
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\Form_rooms.baml
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\F_Rooms\Form_createRoom.g.cs
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\Forms\F_Rooms\Form_rooms.g.cs

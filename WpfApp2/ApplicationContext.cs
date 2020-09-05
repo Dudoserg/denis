@@ -14,7 +14,12 @@ namespace WpfApp2
         {
         }
         public DbSet<Phone> Phones { get; set; }
+
         public DbSet<Clients> Clients { get; set; }
+
+        public DbSet<RoomTypes> RoomTypes { get; set; }
+        public DbSet<Rooms> Rooms { get; set; }
+
 
         public void kek()
         {

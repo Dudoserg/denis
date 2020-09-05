@@ -12,6 +12,7 @@
             <ColumnDefinition Width="511*"/>
             <ColumnDefinition Width="198*"/>
         </Grid.ColumnDefinitions>
+        
         <DataGrid 
             x:Name="DataGrid_clients" 
             ItemsSource="{Binding clientsList}" 
@@ -40,6 +41,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        
         <Grid Grid.Column="2"  UseLayoutRounding="False">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="15*"></RowDefinition>

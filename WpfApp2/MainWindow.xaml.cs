@@ -55,5 +55,13 @@ namespace WpfApp2
             form.Owner = this;
             form.ShowDialog();
         }
+
+        private void MenuItem_rooms_click(object sender, RoutedEventArgs e)
+        {
+            Form_rooms form = new Form_rooms();
+
+            form.Owner = this;
+            form.ShowDialog();
+        }
     }
 }

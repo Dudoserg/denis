@@ -19,6 +19,11 @@
                     <TextBlock Text="Клиенты" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </MenuItem.Header>
             </MenuItem>
+            <MenuItem x:Name="MenuItem_rooms"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_rooms_click" >
+                <MenuItem.Header >
+                    <TextBlock Text="Номера" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
 
     </Grid>
