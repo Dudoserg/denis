@@ -28,6 +28,7 @@ namespace WpfApp2.Forms.Rooms
 
         List<RoomTypes> roomTypesList;
         List<Entity.Rooms> roomsList;
+        string emptyComboBoxItem = "--\\--";
 
         public Form_rooms()
         {
@@ -35,11 +36,20 @@ namespace WpfApp2.Forms.Rooms
 
             updateDataGrid();
 
+
+            //emptyRoomType = new RoomTypes();
+            //emptyRoomType.Id = -1;
+            //emptyRoomType.Type = "";
+
+            //ComboBox_roomType.Items.Add(emptyRoomType);
+
+            ComboBox_roomType.Items.Add(emptyComboBoxItem);
             foreach (RoomTypes roomType in roomTypesList)
             {
                 ComboBox_roomType.Items.Add(roomType);
             }
 
+            ComboBox_size.Items.Add(emptyComboBoxItem);
             Entity.Rooms.initComboboxSize(ComboBox_size);
         }
 
@@ -76,14 +86,17 @@ namespace WpfApp2.Forms.Rooms
 
         private void Button_findRoom_click(object sender, RoutedEventArgs e)
         {
+            findRowsByFilter();
+        }
+        private void findRowsByFilter()
+        {
             RoomTypes findRoomType = ComboBox_roomType.SelectedIndex > -1 ? (RoomTypes)ComboBox_roomType.SelectedItem : null;
 
             int find_priceFrom = TextBox_priceFrom.Text == "" ? -1 : Int32.Parse(TextBox_priceFrom.Text);
             int find_priceTo = TextBox_priceTo.Text == "" ? Int32.MaxValue : Int32.Parse(TextBox_priceTo.Text);
-
             int find_size = ComboBox_size.SelectedIndex > -1 ? (int)ComboBox_size.SelectedItem : -1;
 
-            int find_number = TextBox_roomNumber.Text == "" ? -1 : Int32.Parse(TextBox_roomNumber.Text);  
+            int find_number = TextBox_roomNumber.Text == "" ? -1 : Int32.Parse(TextBox_roomNumber.Text);
 
             db.Clients.Load();
 
@@ -96,7 +109,7 @@ namespace WpfApp2.Forms.Rooms
                 if (findRoomType != null && room.TypeId != findRoomType.Id)
                     isAdding = false;
 
-                if ( !(find_priceFrom <= room.Price && room.Price <= find_priceTo)  )
+                if (!(find_priceFrom <= room.Price && room.Price <= find_priceTo))
                     isAdding = false;
 
                 if (find_size >= 0 && room.Size != find_size)
@@ -118,6 +131,30 @@ namespace WpfApp2.Forms.Rooms
 
         private void Button_delRow_click(object sender, RoutedEventArgs e)
         {
+            Entity.Rooms room = ((FrameworkElement)sender).DataContext as Entity.Rooms;
+
+            MessageBoxResult messageBoxResult = 
+                System.Windows.MessageBox.Show(
+                    "Вы действительно хотите удалить комнату №" + room.Number,
+                    "Delete Confirmation",
+                    System.Windows.MessageBoxButton.YesNo
+                );
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Console.WriteLine("clicked delete row id = " + room.Id);
+
+                using (var context = new ApplicationContext())
+                {
+                    var deletedCustomer = context.Rooms.Where(c => c.Id == room.Id).FirstOrDefault();
+                    context.Rooms.Remove(deletedCustomer);
+                    context.SaveChanges();
+                }
+
+                db.SaveChanges();
+
+                this.updateDataGrid();
+            }
 
         }
 
@@ -134,6 +171,20 @@ namespace WpfApp2.Forms.Rooms
             ButtonAutomationPeer peer = new ButtonAutomationPeer(Button_findRoom);
             IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
             invokeProv.Invoke();
+        }
+
+        private void ComboBox_roomType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBox_roomType.SelectedItem is string && (string)ComboBox_roomType.SelectedItem == this.emptyComboBoxItem)
+                ComboBox_roomType.SelectedIndex = -1;
+            findRowsByFilter();
+        }
+
+        private void ComboBox_size_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBox_size.SelectedItem is string && (string)ComboBox_size.SelectedItem == this.emptyComboBoxItem)
+                ComboBox_size.SelectedIndex = -1;
+            findRowsByFilter();
         }
     }
 }
