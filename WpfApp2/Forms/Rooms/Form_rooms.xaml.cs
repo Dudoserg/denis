@@ -185,9 +185,10 @@ namespace WpfApp2.Forms.Rooms
 
             TextBox_roomNumber.Text = "";
 
-            ButtonAutomationPeer peer = new ButtonAutomationPeer(Button_findRoom);
-            IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
-            invokeProv.Invoke();
+            //ButtonAutomationPeer peer = new ButtonAutomationPeer(Button_findRoom);
+            //IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            //invokeProv.Invoke();
+            findRowsByFilter();
         }
 
         private void ComboBox_roomType_SelectionChanged(object sender, SelectionChangedEventArgs e)

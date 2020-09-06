@@ -16,12 +16,11 @@
 
         <Grid Grid.Column="2"  UseLayoutRounding="False">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="15*"></RowDefinition>
+                <RowDefinition  Height="10*"></RowDefinition>
                 <RowDefinition  Height="15*"></RowDefinition>
                 <RowDefinition  Height="15*"></RowDefinition>
                 <RowDefinition  Height="15*"></RowDefinition>
                 <RowDefinition  Height="25*"></RowDefinition>
-                <RowDefinition  Height="15*"></RowDefinition>
             </Grid.RowDefinitions>
             <Rectangle Grid.Row="0" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Rectangle Grid.Row="1" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
@@ -72,12 +71,14 @@
                 <Label x:Name="Label_priceFrom" Grid.Row="1" Content="От" VerticalAlignment="Center" Height="25" HorizontalAlignment="Left" Margin="0,7,0,37"/>
                 <Label x:Name="Label_priceTo" Grid.Row="1" Content="До" VerticalAlignment="Center" Height="25" HorizontalAlignment="Left" Margin="0,38,169,6" RenderTransformOrigin="4.042,0.48" Width="29"/>
             </Grid>
-            <Grid Grid.Row="5">
+           <!--
+             <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="10*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Button x:Name="Button_findRoom" Content="Поиск" Padding="1" ScrollViewer.CanContentScroll="True" Margin="10" Click="Button_findRoom_click"></Button>
             </Grid>
+            -->
 
         </Grid>
         <Button x:Name="Button_createRoom" Content="Добавить комнату" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="140" Click="Button_createRoom_click" Height="35" Grid.ColumnSpan="2"/>

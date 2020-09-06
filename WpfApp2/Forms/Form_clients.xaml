@@ -63,7 +63,6 @@
             <Rectangle Grid.Row="2" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Rectangle Grid.Row="3" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Rectangle Grid.Row="4" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
-            <Rectangle Grid.Row="5" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="10*"></RowDefinition>
