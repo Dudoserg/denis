@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900" MinWidth="900" MinHeight="450">
+        Title="Отель «Гранд Будапешт»" Height="450" Width="900" MinWidth="900" MinHeight="450">
     <Grid>
         <Menu x:Name="Menu" VerticalAlignment="Top" Height="20">
             <!--<MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_clients_click" >

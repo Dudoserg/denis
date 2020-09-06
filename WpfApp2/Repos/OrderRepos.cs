@@ -12,9 +12,17 @@ namespace WpfApp2.Repos
         {
         }
         
-        public List<Order_entity> GetByRoom(int RoomId)
+        public List<Order_entity> GetByRoomId(int RoomId)
         {
             return _dbSet.AsNoTracking().Where( x => x.RoomsId == RoomId).ToList();
         }
+        
+        
+        public List<Order_entity> getByClientId(int clientId)
+        {
+            return _dbSet.AsNoTracking().Where( x => x.ClientsId == clientId).ToList();
+        }
+        
+        
     }
 }

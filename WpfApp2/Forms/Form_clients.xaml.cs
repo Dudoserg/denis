@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp2.Entity;
+using WpfApp2.Repos;
 
 namespace WpfApp2.Forms
 {
@@ -141,6 +142,11 @@ namespace WpfApp2.Forms
 
         private void Button_findClient_click(object sender, RoutedEventArgs e)
         {
+            findClient();
+
+        }
+        private void findClient()
+        {
             string findPassport = TextBox_findPassport.Text;
             string findFirstName = TextBox_findFirstName.Text;
             string findSecondName = TextBox_findSecondName.Text;
@@ -154,7 +160,7 @@ namespace WpfApp2.Forms
             {
                 bool isAdding = true;
 
-                if(findPassport.Length != 0 && client.Passport.ToLower().IndexOf(findPassport.ToLower()) == -1)
+                if (findPassport.Length != 0 && client.Passport.ToLower().IndexOf(findPassport.ToLower()) == -1)
                     isAdding = false;
 
                 if (findFirstName.Length != 0 && client.FirstName.ToLower().IndexOf(findFirstName.ToLower()) == -1)
@@ -169,11 +175,10 @@ namespace WpfApp2.Forms
                 if (findPhone.Length != 0 && client.Phone.ToLower().IndexOf(findPhone.ToLower()) == -1)
                     isAdding = false;
 
-                if(isAdding)
+                if (isAdding)
                     clientsList.Add(client);
             }
             DataGrid_clients.ItemsSource = clientsList;
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -210,10 +215,32 @@ namespace WpfApp2.Forms
         {
             Clients client = ((FrameworkElement)sender).DataContext as Clients;
             Console.WriteLine("clicked delete row id = " + client.Id);
-            db.Clients.Remove(client);
-            db.SaveChanges();
+            
+            MessageBoxResult messageBoxResult = 
+                System.Windows.MessageBox.Show(
+                    "Вы действительно хотите удалить Клиента " + client.FirstName + " " + client.SecondName +
+                    "\t phone: " + client.Phone,
+                    "Delete Confirmation",
+                    System.Windows.MessageBoxButton.YesNo
+                );
 
-            this.updateDataGrid();
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                // Проверяем, нет ли зависимых от это строки записей
+                OrderRepos orderRepo = new OrderRepos(db);
+                List<Order_entity> dependentOrders = orderRepo.getByClientId(client.Id);
+                if (dependentOrders.Count != 0)
+                {
+                    MessageBox.Show(
+                        "Невозможно удалить эту запись, т.к. от нее зависят " + dependentOrders.Count + " заказов");
+                    return;
+                }
+
+                db.Clients.Remove(client);
+                db.SaveChanges();
+
+                this.updateDataGrid();
+            }
         }
 
         private void Button_resetFilter_click(object sender, RoutedEventArgs e)
@@ -225,10 +252,35 @@ namespace WpfApp2.Forms
             TextBox_findPhone.Text = "";
 
             
-            ButtonAutomationPeer peer = new ButtonAutomationPeer(Button_findClient);
-            IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
-            invokeProv.Invoke();
+            //ButtonAutomationPeer peer = new ButtonAutomationPeer(Button_findClient);
+            //IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            //invokeProv.Invoke();
+           findClient();
+        }
 
+        private void TextBox_findPassport_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClient();
+        }
+
+        private void TextBox_findSecondName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClient();
+        }
+
+        private void TextBox_findFirstName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClient();
+        }
+
+        private void TextBox_findPatronymic_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClient();
+        }
+
+        private void TextBox_findPhone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findClient();
         }
     }
 }

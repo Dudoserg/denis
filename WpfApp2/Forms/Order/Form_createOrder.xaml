@@ -5,39 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.Forms.Order"
         mc:Ignorable="d"
-        Title="Form_createOrder" Height="840" Width="800">
+        Title="Оформление заказа" Height="840" Width="800">
     <Grid>
         <ScrollViewer>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="65*"/>
-                    <ColumnDefinition Width="331*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="Label_passport" Content="Паспорт" HorizontalAlignment="Left" Margin="17,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.75,2.462"/>
-                <TextBox x:Name="TextBox_passport" HorizontalAlignment="Left" Height="23" Margin="97,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" TextChanged="TextBox_passport_TextChanged" Grid.ColumnSpan="2" />
+                <TextBox x:Name="TextBox_passport" HorizontalAlignment="Left" Height="23" Margin="97,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" TextChanged="TextBox_passport_TextChanged" />
                 <Label x:Name="Label_patronymic" Content="Отчество" HorizontalAlignment="Left" Margin="17,200,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TextBox_patronymic" HorizontalAlignment="Left" Height="23" Margin="97,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" TextChanged="TextBox_patronymic_TextChanged" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="TextBox_patronymic" HorizontalAlignment="Left" Height="23" Margin="97,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" TextChanged="TextBox_patronymic_TextChanged"/>
                 <Label x:Name="Label_firstName" Content="Имя" HorizontalAlignment="Left" Margin="17,120,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TextBox_firstName" HorizontalAlignment="Left" Height="23" Margin="97,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" TextChanged="TextBox_firstName_TextChanged" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="TextBox_firstName" HorizontalAlignment="Left" Height="23" Margin="97,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" TextChanged="TextBox_firstName_TextChanged"/>
                 <Label x:Name="Label_secondName" Content="Фамилия" HorizontalAlignment="Left" Margin="17,160,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TextBox_secondName" HorizontalAlignment="Left" Height="23" Margin="97,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" TextChanged="TextBox_secondName_TextChanged" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="TextBox_secondName" HorizontalAlignment="Left" Height="23" Margin="97,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" TextChanged="TextBox_secondName_TextChanged"/>
                 <Label x:Name="Label_roomType" Content="Тип комнаты" HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="ComboBox_roomType" HorizontalAlignment="Left" Margin="105,376,0,0" VerticalAlignment="Top" Width="162" SelectionChanged="ComboBox_roomType_SelectionChanged" Grid.ColumnSpan="2"/>
-                <Calendar x:Name="Calendar_" HorizontalAlignment="Left" Margin="44,516,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                <Calendar x:Name="Calendar_" HorizontalAlignment="Left" Margin="28,516,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="Label_phone" Content="Телефон" HorizontalAlignment="Left" Margin="17,240,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TextBox_phone" HorizontalAlignment="Left" Height="23" Margin="97,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" TextChanged="TextBox_phone_TextChanged" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="TextBox_phone" HorizontalAlignment="Left" Height="23" Margin="97,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" TextChanged="TextBox_phone_TextChanged"/>
                 <Label x:Name="Label_size" Content="Вместимость" HorizontalAlignment="Left" Margin="10,420,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="Combobox_size" HorizontalAlignment="Left" Margin="103,420,0,0" VerticalAlignment="Top" Width="164" SelectionChanged="ComboBox_size_SelectionChanged" Grid.ColumnSpan="2"/>
                 <Label x:Name="Label_priceFrom" Content="Цена от" HorizontalAlignment="Left" Margin="10,468,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TextBox_priceFrom" HorizontalAlignment="Left" Height="24" Margin="68,468,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" TextChanged="TextBox_priceFrom_TextChanged"/>
-                <Label x:Name="Label_priceFrom1" Content="до" HorizontalAlignment="Left" Margin="128,468,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="TextBox_priceTo" HorizontalAlignment="Left" Height="24" Margin="27,468,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" TextChanged="TextBox_priceTo_TextChanged" Grid.Column="1"/>
+                <TextBox x:Name="TextBox_priceFrom" HorizontalAlignment="Left" Height="24" Margin="184,468,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" TextChanged="TextBox_priceFrom_TextChanged"/>
+                <Label x:Name="Label_priceFrom1" Content="до" HorizontalAlignment="Left" Margin="155,466,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_priceTo" HorizontalAlignment="Left" Height="24" Margin="72,468,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" TextChanged="TextBox_priceTo_TextChanged"/>
                 <Button x:Name="Button_findFreeNumber" Content="Найти свободные номера" HorizontalAlignment="Left" VerticalAlignment="Top" Width="257" Margin="10,706,0,0" Click="Button_findFreeNumber_Click" Grid.ColumnSpan="2"/>
                 <Grid HorizontalAlignment="Left" Height="100" Margin="365,614,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
                 <DataGrid x:Name="DataGrid_rooms" 
-            Height="390" Margin="155,336,10,0"
+            Height="390" Margin="294,336,10,0"
             VerticalAlignment="Top"
-            AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_rooms_MouseDoubleClick" Grid.Column="1"
+            AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_rooms_MouseDoubleClick"
             >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="8*" />
@@ -47,14 +46,14 @@
                         <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}" Width="15*" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="Button_calendarReset" Content="X" HorizontalAlignment="Left" Margin="114,516,0,0" VerticalAlignment="Top" Width="23" Height="26" Click="Button_calendarReset_Click" Grid.Column="1"/>
+                <Button x:Name="Button_calendarReset" Content="X" HorizontalAlignment="Left" Margin="244,519,0,0" VerticalAlignment="Top" Width="23" Height="26" Click="Button_calendarReset_Click"/>
                 <Button x:Name="Button_resetRoomsFilter" Content="Сбросить фильтр" HorizontalAlignment="Left" Margin="10,336,0,0" VerticalAlignment="Top" Width="257" Click="Button_resetRoomsFilter_Click" Grid.ColumnSpan="2"/>
-                <Button x:Name="Button_Price" Content="X" HorizontalAlignment="Left" Margin="114,468,0,0" VerticalAlignment="Top" Width="23" Height="24" Click="Button_Price_Click" Grid.Column="1"/>
+                <Button x:Name="Button_Price" Content="X" HorizontalAlignment="Left" Margin="244,469,0,0" VerticalAlignment="Top" Width="23" Height="24" Click="Button_Price_Click"/>
                 <Label x:Name="Label_reserved" Content="Резервируется :" HorizontalAlignment="Left" Margin="10,738,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="Label_statusRoom" Content="..." HorizontalAlignment="Left" Margin="120,738,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <Button x:Name="Button_resetClientFilter" Content="Сбросить фильтр" HorizontalAlignment="Left" Margin="97,46,0,0" VerticalAlignment="Top" Width="131" Click="Button_resetClientFilter_Click" Grid.ColumnSpan="2"/>
+                <Button x:Name="Button_resetClientFilter" Content="Сбросить фильтр" HorizontalAlignment="Left" Margin="97,46,0,0" VerticalAlignment="Top" Width="170" Click="Button_resetClientFilter_Click"/>
                 <DataGrid x:Name="DataGrid_clients" Height="220" 
-            Margin="155,46,10,0" VerticalAlignment="Top"  AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_clients_MouseDoubleClick" Grid.Column="1"
+            Margin="294,46,10,0" VerticalAlignment="Top"  AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="DataGrid_clients_MouseDoubleClick"
         >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="7*" />
@@ -65,8 +64,8 @@
                         <DataGridTextColumn Header="Номер" Binding="{Binding Path=Phone}"  Width="20*" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label x:Name="Label_statusClients" Content="..." HorizontalAlignment="Left" Margin="28,296,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="Button_confirmOrder" Content="Подтвердить заказ" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="140" Click="Button_confirmOrder_Click" Height="40" Grid.Column="1"/>
+                <Label x:Name="Label_statusClients" Content="..." HorizontalAlignment="Left" Margin="28,271,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="Button_confirmOrder" Content="Подтвердить заказ" HorizontalAlignment="Right" Margin="0,759,10,0" VerticalAlignment="Top" Width="140" Click="Button_confirmOrder_Click" Height="40"/>
                 <Label x:Name="Label_statusMain" Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
 
 

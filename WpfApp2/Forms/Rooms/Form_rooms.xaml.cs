@@ -151,6 +151,16 @@ namespace WpfApp2.Forms.Rooms
             {
                 Console.WriteLine("clicked delete row id = " + room.Id);
 
+                // Проверяем, нет ли зависимых от это строки записей
+                OrderRepos orderRepo = new OrderRepos(db);
+                List<Order_entity> dependentOrders = orderRepo.GetByRoomId(room.Id);
+                if (dependentOrders.Count != 0)
+                {
+                    MessageBox.Show(
+                        "Невозможно удалить эту запись, т.к. от нее зависят " + dependentOrders.Count + " заказов");
+                    return;
+                }
+                
                 using (var context = new ApplicationContext())
                 {
                     var deletedCustomer = context.Rooms.Where(c => c.Id == room.Id).FirstOrDefault();
@@ -191,6 +201,21 @@ namespace WpfApp2.Forms.Rooms
         {
             if (ComboBox_size.SelectedItem is string && (string)ComboBox_size.SelectedItem == this.emptyComboBoxItem)
                 ComboBox_size.SelectedIndex = -1;
+            findRowsByFilter();
+        }
+
+        private void TextBox_roomNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        private void TextBox_priceFrom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        private void TextBox_priceTo_TextChanged(object sender, TextChangedEventArgs e)
+        {
             findRowsByFilter();
         }
     }

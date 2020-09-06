@@ -73,7 +73,8 @@ namespace WpfApp2.Forms.Order
             if (order_editing != null)
             {
                 // edit mod
-
+                this.Title = "Редактирование информации о заказе";
+                this.Button_confirmOrder.Content = "Обновить";
                 this.selectedRoom = order_editing.Rooms;
                 
                 // инфа о выбранном пользователе
@@ -85,7 +86,7 @@ namespace WpfApp2.Forms.Order
                 
                 // достаем заказы с выбранной комнатой
                 OrderRepos orderRepos = new OrderRepos(db);
-                List<Order_entity> selectedRoomOrderList = orderRepos.GetByRoom(order_editing.RoomsId);
+                List<Order_entity> selectedRoomOrderList = orderRepos.GetByRoomId(order_editing.RoomsId);
 
                 // помечаем календарь крестиками
                 Calendar_.BlackoutDates.Clear();
@@ -237,7 +238,7 @@ namespace WpfApp2.Forms.Order
 
             // достаем заказы с выбранной комнатой
             OrderRepos orderRepos = new OrderRepos(db);
-            List<Order_entity> selectedRoomOrderList = orderRepos.GetByRoom(selectedRoom.Id);
+            List<Order_entity> selectedRoomOrderList = orderRepos.GetByRoomId(selectedRoom.Id);
 
             Calendar_.BlackoutDates.Clear();
             foreach (Order_entity order in selectedRoomOrderList)

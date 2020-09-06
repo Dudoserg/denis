@@ -87,6 +87,8 @@ namespace WpfApp2.Entity
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
+        
+        // Вручную устанавливаем зависисые сущности
         public void customInit(DbSet<Clients> dbClients, DbSet<Rooms> dbRooms)
         {
            Clients tmp_client = dbClients.Where(c => c.Id == this.ClientsId).ToList()[0];
@@ -97,6 +99,7 @@ namespace WpfApp2.Entity
         }
         
         
+        // инициализируем таблицу Заказы (вручную т.к. EF не хочет подтягивать зависимые сущности)
         public static List<Order_entity> init_Orders(DbContext db)
         {
             // создаем репозиторий комнат, для работы с бд
@@ -109,5 +112,6 @@ namespace WpfApp2.Entity
             }
             return tmpList;
         }
+        
     }
 }

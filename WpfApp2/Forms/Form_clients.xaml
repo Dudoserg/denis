@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.Forms"
         mc:Ignorable="d"
-        Title="Клиенты" Height="450" Width="800" MinHeight="450" MinWidth="800">
+        Title="Клиенты" Height="500" Width="900" MinHeight="500" MinWidth="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="83*" />
@@ -50,7 +50,6 @@
                 <RowDefinition  Height="20*"></RowDefinition>
                 <RowDefinition  Height="20*"></RowDefinition>
                 <RowDefinition  Height="20*"></RowDefinition>
-                <RowDefinition  Height="20*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -71,7 +70,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_passport" Grid.Row="0" Content="Паспорт" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_findPassport" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findPassport" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_findPassport_TextChanged"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
@@ -79,7 +78,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_secondName" Grid.Row="0" Content="Фамилия" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_findSecondName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findSecondName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_findSecondName_TextChanged"/>
             </Grid>
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
@@ -87,7 +86,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_firstName" Grid.Row="0" Content="Имя" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_findFirstName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findFirstName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_findFirstName_TextChanged"/>
             </Grid>
             <Grid Grid.Row="4">
                 <Grid.RowDefinitions>
@@ -95,7 +94,7 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_patronymic" Grid.Row="0" Content="Отчество" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_findPatronymic" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findPatronymic" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_findPatronymic_TextChanged"/>
             </Grid>
             <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
@@ -103,18 +102,12 @@
                     <RowDefinition  Height="20*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label x:Name="Label_phone" Grid.Row="0" Content="Телефон" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                <TextBox x:Name="TextBox_findPhone" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBox_findPhone" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_findPhone_TextChanged"/>
             </Grid>
-            <Grid Grid.Row="6">
-                <Grid.RowDefinitions>
-                    <RowDefinition  Height="10*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Button x:Name="Button_findClient" Content="Поиск" Padding="1" ScrollViewer.CanContentScroll="True" Margin="10" Click="Button_findClient_click"></Button>
-            </Grid>
+            
 
         </Grid>
         <Button x:Name="Button_createClient" Content="Добавить клиента" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="140" Click="Button_createClient_click" Height="35" Grid.ColumnSpan="2"/>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="313,388,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 
     </Grid>
 </Window>
