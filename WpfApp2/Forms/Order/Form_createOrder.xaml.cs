@@ -39,7 +39,7 @@ namespace WpfApp2.Forms.Order
             db = new ApplicationContext();
 
 
-            roomTypesList =  RoomTypes.init_RoomTypes(db);
+            roomTypesList = RoomTypes.init_RoomTypes(db);
             roomsList = Entity.Rooms.init_Rooms(db);
             clientsList = Clients.init_Clients(db);
             ordersList = Order_entity.init_Orders(db);
@@ -62,11 +62,11 @@ namespace WpfApp2.Forms.Order
             DateTime now = DateTime.Now;
             Calendar_.SelectionMode = CalendarSelectionMode.MultipleRange;
             Calendar_.DisplayDateStart = new DateTime(
-                 now.Year,
+                now.Year,
                 now.Month - 1 < 1 ? 1 : now.Month - 1,
                 1);
         }
-        
+
         // Фильтруем доступные комнаты по фильтру
         private void findRoomsByFilter()
         {
@@ -110,7 +110,7 @@ namespace WpfApp2.Forms.Order
         {
             db = new ApplicationContext();
 
-            roomTypesList =  RoomTypes.init_RoomTypes(db);
+            roomTypesList = RoomTypes.init_RoomTypes(db);
             roomsList = Entity.Rooms.init_Rooms(db);
 
             DataGrid_rooms.ItemsSource = roomsList;
@@ -142,6 +142,7 @@ namespace WpfApp2.Forms.Order
         private void Button_calendarReset_Click(object sender, RoutedEventArgs e)
         {
             Calendar_.SelectedDates.Clear();
+            Calendar_.BlackoutDates.Clear();
             findRoomsByFilter();
         }
 
@@ -152,6 +153,7 @@ namespace WpfApp2.Forms.Order
             TextBox_priceFrom.Text = "";
             TextBox_priceTo.Text = "";
             Calendar_.SelectedDates.Clear();
+            Calendar_.BlackoutDates.Clear();
             findRoomsByFilter();
         }
 
@@ -162,31 +164,45 @@ namespace WpfApp2.Forms.Order
             findRoomsByFilter();
         }
 
+        private Entity.Rooms selectedRoom = null;
+
         private void DataGrid_rooms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Entity.Rooms selectedRoom = (Entity.Rooms) DataGrid_rooms.SelectedItem;
-            MessageBox.Show("double click #" + selectedRoom.Price);
-            Label_statusRoom.Content = "Комната №" + selectedRoom.Number + "\tтип: " + selectedRoom.RoomTypes;
+            Entity.Rooms currentRoom = (Entity.Rooms) DataGrid_rooms.SelectedItem;
+            this.selectedRoom = currentRoom;
+            MessageBox.Show("double click #" + currentRoom.Price);
+            updateLabelStatusRoom();
             UpdateCalendar();
+        }
+
+        private void updateLabelStatusRoom()
+        {
+            if (selectedRoom == null)
+            {
+                Label_statusRoom.Content = "Комната не выбрана";
+                return;
+            }
+
+            Label_statusRoom.Content = "Комната №" + selectedRoom.Number + "\tтип: " + selectedRoom.RoomTypes;
         }
 
         private void UpdateCalendar()
         {
             Entity.Rooms selectedRoom = (Entity.Rooms) DataGrid_rooms.SelectedItem;
             List<Order_entity> ordersList = Order_entity.init_Orders(db);
-            
+
             // достаем заказы с выбранной комнатой
             OrderRepos orderRepos = new OrderRepos(db);
             List<Order_entity> selectedRoomOrderList = orderRepos.GetByRoom(selectedRoom.Id);
-            
+
             Calendar_.BlackoutDates.Clear();
             foreach (Order_entity order in selectedRoomOrderList)
             {
                 Calendar_.BlackoutDates.Add(
-                                new CalendarDateRange(order.DateStart, order.DateEnd)
-                            );
+                    new CalendarDateRange(order.DateStart, order.DateEnd)
+                );
             }
-            
+
             int a = 2;
         }
 
@@ -216,6 +232,7 @@ namespace WpfApp2.Forms.Order
         private bool isNewClient = false;
         private bool isClientWithPassportExist = false;
         private bool isOldClient = false;
+        private Clients oldClient = null;
 
         private void findClientsByFilter()
         {
@@ -258,12 +275,31 @@ namespace WpfApp2.Forms.Order
             isOldClient = false;
             // проверяем, чтобы пользователя с таким паспортом не было, т.к. паспорт должен быть уникален
             Clients tmp_clientWithExistingPassport = db.Clients.Where(c => c.Passport == findPassport).FirstOr(null);
-            if (tmp_clientWithExistingPassport != null && clientsList.Count == 0)
+            if (tmp_clientWithExistingPassport != null)
             {
-                Label_statusClients.Content = "Клиент с таким паспортом, но c другими данными, уже существует";
-                isClientWithPassportExist = true;
-                isNewClient = false;
-                isOldClient = false;
+                // Клиент с таким же паспортом уже существует
+                // проверяем, другие ли данные о нем сейчас в текстбоксе, если да то сообщаем об этом
+                if (!(tmp_clientWithExistingPassport.Passport == TextBox_passport.Text &&
+                      tmp_clientWithExistingPassport.FirstName == TextBox_firstName.Text &&
+                      tmp_clientWithExistingPassport.SecondName == TextBox_secondName.Text &&
+                      tmp_clientWithExistingPassport.Patronymic == TextBox_patronymic.Text &&
+                      tmp_clientWithExistingPassport.Phone == TextBox_phone.Text))
+                {
+                    // паспорт тот же, данные другие
+                    Label_statusClients.Content = "Клиент с таким паспортом, но c другими данными, уже существует";
+                    isClientWithPassportExist = true;
+                    isNewClient = false;
+                    isOldClient = false;
+                }
+                else
+                {
+                    // паспорт тот же, Данные те же, КЛИЕНТ ИЗ БАЗЫ
+                    Label_statusClients.Content = "Клиент выбран из базы";
+                    isClientWithPassportExist = false;
+                    isNewClient = false;
+                    isOldClient = true;
+                    oldClient = tmp_clientWithExistingPassport;
+                }
             }
             else
             {
@@ -274,19 +310,19 @@ namespace WpfApp2.Forms.Order
             }
 
             // проверяем на полное совпадение
-            Clients selectedItem = (Clients) DataGrid_clients.SelectedItem;
-            if (selectedItem != null &&
-                selectedItem.Passport == TextBox_passport.Text &&
-                selectedItem.FirstName == TextBox_firstName.Text &&
-                selectedItem.SecondName == TextBox_secondName.Text &&
-                selectedItem.Patronymic == TextBox_patronymic.Text &&
-                selectedItem.Phone == TextBox_phone.Text)
-            {
-                Label_statusClients.Content = "Клиент выбран из базы";
-                isClientWithPassportExist = false;
-                isNewClient = false;
-                isOldClient = true;
-            }
+//            Clients selectedItem = (Clients) DataGrid_clients.SelectedItem;
+//            if (selectedItem != null &&
+//                selectedItem.Passport == TextBox_passport.Text &&
+//                selectedItem.FirstName == TextBox_firstName.Text &&
+//                selectedItem.SecondName == TextBox_secondName.Text &&
+//                selectedItem.Patronymic == TextBox_patronymic.Text &&
+//                selectedItem.Phone == TextBox_phone.Text)
+//            {
+//                Label_statusClients.Content = "Клиент выбран из базы";
+//                isClientWithPassportExist = false;
+//                isNewClient = false;
+//                isOldClient = true;
+//            }
         }
 
         public void updateDataGridClients()
@@ -339,16 +375,6 @@ namespace WpfApp2.Forms.Order
             TextBox_phone.Text = selectedClient.Phone;
         }
 
-        private void Button_confirmOrder_Click(object sender, RoutedEventArgs e)
-        {
-            Label_statusMain.Content = "";
-           if(!verificateClient())
-               return;
-            
-            // Проверяем существует ли клиент с таким паспортом
-            // Если существует, то нужно чтобы все поля совпадали
-            // Если хоть одно поле не совпадает, выводим предупреждение
-        }
 
         private bool verificateClient()
         {
@@ -364,6 +390,7 @@ namespace WpfApp2.Forms.Order
                 Label_statusMain.Content = "Клиент с таким паспортом, но другими данными уже существует";
                 return false;
             }
+
             // Верефицируем пользователя
             string passport = TextBox_passport.Text;
             string firstName = TextBox_firstName.Text;
@@ -384,6 +411,94 @@ namespace WpfApp2.Forms.Order
                 return true;
 
             return true;
+        }
+
+        private bool verificateRoom()
+        {
+            Console.WriteLine("verificateRoom");
+
+            if (this.selectedRoom == null)
+            {
+                Label_statusMain.Content = "Вы не выбрали номер";
+                return false;
+            }
+
+            SelectedDatesCollection dates = Calendar_.SelectedDates;
+            bool isIntervalVerificate = true;
+            if (dates.Count > 1)
+            {
+                for (int i = 0; i < dates.Count - 1; i++)
+                {
+                    if ((int) (dates[i + 1] - dates[i]).TotalDays != 1)
+                    {
+                        isIntervalVerificate = false;
+                        break;
+                    }
+                }
+            }
+            else if (dates.Count < 1)
+            {
+                Label_statusMain.Content = "Вы не выбрали дату заселения";
+                return false;
+            }
+
+            if (!isIntervalVerificate)
+            {
+                Label_statusMain.Content = "Вы выбрали несколько прерывающихся временных отрезков";
+                return false;
+            }
+
+            return true;
+        }
+
+        private void Button_confirmOrder_Click(object sender, RoutedEventArgs e)
+        {
+            Label_statusMain.Content = "";
+            if (!verificateClient())
+                return;
+
+            if (!verificateRoom())
+                return;
+
+            Label_statusMain.Content = "Вроде все ок, можно заказывать";
+
+            // Разбираемся с выбранным клиентом
+            Clients client = null;
+            if (isOldClient)
+            {
+                client = this.oldClient;
+            }
+            else
+            {
+                string findPassport = TextBox_passport.Text;
+                string findFirstName = TextBox_firstName.Text;
+                string findSecondName = TextBox_secondName.Text;
+                string findPatronymic = TextBox_patronymic.Text;
+                string findPhone = TextBox_phone.Text;
+
+                client = new Clients();
+                client.Passport = findPassport;
+                client.FirstName = findFirstName;
+                client.SecondName = findSecondName;
+                client.Patronymic = findPatronymic;
+                client.Phone = findPhone;
+                client = db.Clients.Add(client);
+                db.SaveChanges();
+            }
+
+            Order_entity order = new Order_entity();
+            order.ClientsId = client.Id;
+            order.Clients = client;
+
+            order.RoomsId = selectedRoom.Id;
+            order.Rooms = selectedRoom;
+
+            SelectedDatesCollection calendarSelectedDates = Calendar_.SelectedDates;
+            order.DateStart = calendarSelectedDates[0];
+            order.DateEnd = calendarSelectedDates[calendarSelectedDates.Count - 1];
+
+            order = db.Orders.Add(order);
+            db.SaveChanges();
         }
     }
 }

@@ -22,8 +22,10 @@ namespace WpfApp2.Entity
         public int Id { get; set; }
 
         public int? ClientsId { get; set; }      // внешний ключ
+        [NotMapped]
         public Clients Clients { get; set; }
         public int? RoomsId { get; set; }      // внешний ключ
+        [NotMapped]
         public Rooms Rooms { get; set; }
 
         public DateTime DateStart { get; set; }
