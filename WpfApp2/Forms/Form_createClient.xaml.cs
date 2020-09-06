@@ -60,39 +60,29 @@ namespace WpfApp2.Forms
                 string passport = TextBox_passport.Text;
 
                 List<Clients> phones = db.Clients.Where(c => c.Passport == passport).ToList();
+                
                 if (phones.Count != 0)
                 {
                     MessageBox.Show("Клиент с пасспортом '" + passport + "' уже существует");
                     return;
                 }
-                if (passport.Length != 10)
-                {
-                    MessageBox.Show("длина номера паспорта должна быть 10 символов!");
+
+                if (!Clients.verificate_Passport(passport))
                     return;
-                }
 
                 string firstName = TextBox_firstName.Text;
-                if (passport.Length < 2)
-                {
-                    MessageBox.Show("Укажите Имя");
-                    return;
-                }
+                if (!Clients.verificate_FirstName(firstName))
+                    return ;
 
                 string secondName = TextBox_secondName.Text;
-                if (passport.Length < 2)
-                {
-                    MessageBox.Show("Укажите Фамилию");
-                    return;
-                }
+                if (!Clients.verificate_SecondName(secondName))
+                    return ;
 
                 string patronymic = TextBox_patronymic.Text;
 
                 string phone = TextBox_phone.Text;
-                if (passport.Length < 3)
-                {
-                    MessageBox.Show("Укажите номер телефона( не менее 3 символов )");
+                if (!Clients.verificate_Phone(phone))
                     return;
-                }
 
 
                 Clients client = new Clients(passport, firstName, secondName, patronymic, phone);
@@ -118,34 +108,22 @@ namespace WpfApp2.Forms
                     MessageBox.Show("Клиент с пасспортом '" + passport + "' уже существует");
                     return;
                 }
-                if(passport.Length != 10)
-                {
-                    MessageBox.Show("длина номера паспорта должна быть 10 символов!");
+                if(!Clients.verificate_Passport(passport))
                     return;
-                }
 
                 string firstName = TextBox_firstName.Text;
-                if (passport.Length < 2)
-                {
-                    MessageBox.Show("Укажите Имя");
+                if (!Clients.verificate_FirstName(firstName))
                     return;
-                }
 
                 string secondName = TextBox_secondName.Text;
-                if (passport.Length < 2)
-                {
-                    MessageBox.Show("Укажите Фамилию");
+                if (!Clients.verificate_SecondName(secondName))
                     return;
-                }
 
                 string patronymic = TextBox_patronymic.Text;
 
                 string phone = TextBox_phone.Text;
-                if (passport.Length < 3)
-                {
-                    MessageBox.Show("Укажите номер телефона( не менее 3 символов )");
+                if (!Clients.verificate_Phone(phone))
                     return;
-                }
 
                 client.Passport = passport;
                 client.FirstName = firstName;

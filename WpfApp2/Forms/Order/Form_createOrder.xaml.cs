@@ -213,6 +213,10 @@ namespace WpfApp2.Forms.Order
         }
 
 
+        private bool isNewClient = false;
+        private bool isClientWithPassportExist = false;
+        private bool isOldClient = false;
+
         private void findClientsByFilter()
         {
             string findPassport = TextBox_passport.Text;
@@ -249,15 +253,24 @@ namespace WpfApp2.Forms.Order
 
             DataGrid_clients.ItemsSource = clientsList;
 
+            isClientWithPassportExist = false;
+            isNewClient = false;
+            isOldClient = false;
             // проверяем, чтобы пользователя с таким паспортом не было, т.к. паспорт должен быть уникален
-            Clients tmp_client = db.Clients.Where(c => c.Passport == findPassport).FirstOr(null);
-            if (tmp_client != null && clientsList.Count == 0)
+            Clients tmp_clientWithExistingPassport = db.Clients.Where(c => c.Passport == findPassport).FirstOr(null);
+            if (tmp_clientWithExistingPassport != null && clientsList.Count == 0)
             {
                 Label_statusClients.Content = "Клиент с таким паспортом, но c другими данными, уже существует";
+                isClientWithPassportExist = true;
+                isNewClient = false;
+                isOldClient = false;
             }
             else
             {
                 Label_statusClients.Content = "Новый клиент будет добавлен в базу";
+                isClientWithPassportExist = false;
+                isNewClient = true;
+                isOldClient = false;
             }
 
             // проверяем на полное совпадение
@@ -270,6 +283,9 @@ namespace WpfApp2.Forms.Order
                 selectedItem.Phone == TextBox_phone.Text)
             {
                 Label_statusClients.Content = "Клиент выбран из базы";
+                isClientWithPassportExist = false;
+                isNewClient = false;
+                isOldClient = true;
             }
         }
 
@@ -325,7 +341,49 @@ namespace WpfApp2.Forms.Order
 
         private void Button_confirmOrder_Click(object sender, RoutedEventArgs e)
         {
+            Label_statusMain.Content = "";
+           if(!verificateClient())
+               return;
+            
+            // Проверяем существует ли клиент с таким паспортом
+            // Если существует, то нужно чтобы все поля совпадали
+            // Если хоть одно поле не совпадает, выводим предупреждение
+        }
 
+        private bool verificateClient()
+        {
+            if (!(isNewClient || isOldClient || isClientWithPassportExist))
+            {
+                // косяк с выбором клиента
+                Label_statusMain.Content = "Ошибка при выборе клиента";
+                return false;
+            }
+
+            if (isClientWithPassportExist && !isNewClient && !isOldClient)
+            {
+                Label_statusMain.Content = "Клиент с таким паспортом, но другими данными уже существует";
+                return false;
+            }
+            // Верефицируем пользователя
+            string passport = TextBox_passport.Text;
+            string firstName = TextBox_firstName.Text;
+            string secondName = TextBox_secondName.Text;
+            string patronymic = TextBox_patronymic.Text;
+            string phone = TextBox_phone.Text;
+
+            if (!Clients.verificate_Passport(passport))
+                return false;
+
+            if (!Clients.verificate_FirstName(firstName))
+                return false;
+
+            if (!Clients.verificate_SecondName(secondName))
+                return false;
+
+            if (!Clients.verificate_Phone(phone))
+                return true;
+
+            return true;
         }
     }
 }

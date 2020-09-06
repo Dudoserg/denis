@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WpfApp2.Repos;
 
 namespace WpfApp2.Entity
@@ -102,6 +103,45 @@ namespace WpfApp2.Entity
             EFGenericRepository<Entity.Clients> clientsRepo = new EFGenericRepository<Entity.Clients>(db);
             List<Entity.Clients> tmpList = (List<Entity.Clients>) clientsRepo.Get();
             return tmpList;
+        }
+
+
+
+        public static bool verificate_Passport( string passport)
+        {
+            if (passport.Length != 10)
+            {
+                MessageBox.Show("длина номера паспорта должна быть 10 символов!");
+                return false;
+            }
+            return true;
+        } 
+        public static bool verificate_SecondName( string secondName)
+        {
+            if (secondName.Length < 2)
+            {
+                MessageBox.Show("Укажите Фамилию");
+                return false;
+            }
+            return true;
+        }
+        public static bool verificate_FirstName( string firstName)
+        {
+            if (firstName.Length < 2)
+            {
+                MessageBox.Show("Укажите Имя");
+                return false;
+            }
+            return true;
+        } 
+        public static bool verificate_Phone( string phone)
+        {
+            if (phone.Length < 3)
+            {
+                MessageBox.Show("Укажите номер телефона( не менее 3 символов )");
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -62,6 +62,7 @@
         </DataGrid>
         <Label x:Name="Label_statusClients" Content="..." HorizontalAlignment="Left" Margin="28,268,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Button_confirmOrder" Content="Подтвердить заказ" HorizontalAlignment="Left" Margin="643,817,0,0" VerticalAlignment="Top" Width="129" Click="Button_confirmOrder_Click" Height="44"/>
+        <Label x:Name="Label_statusMain" Content="" HorizontalAlignment="Left" Margin="12,843,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>
