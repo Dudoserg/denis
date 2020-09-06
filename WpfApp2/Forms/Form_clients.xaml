@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.Forms"
         mc:Ignorable="d"
-        Title="Клиенты" Height="500" Width="900" MinHeight="500" MinWidth="900">
+        Title="Клиенты" Height="500" Width="900" MinHeight="500" MinWidth="900" Icon="/WpfApp2;component/hotel.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="83*" />

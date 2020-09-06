@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="Отель «Гранд Будапешт»" Height="450" Width="900" MinWidth="900" MinHeight="450">
+        Title="Отель «Гранд Будапешт»" Height="550" Width="900" MinWidth="900" MinHeight="550" Icon="hotel.ico" >
     <Grid>
         <Menu x:Name="Menu" VerticalAlignment="Top" Height="20">
             <!--<MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_clients_click" >
@@ -49,12 +49,12 @@
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="83*" />
-                <ColumnDefinition Width="511*"/>
-                <ColumnDefinition Width="198*"/>
+                <ColumnDefinition Width="400*"/>
+                <ColumnDefinition Width="270"/>
             </Grid.ColumnDefinitions>
 
             <DataGrid 
@@ -65,12 +65,13 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="10*" />
                     <DataGridTextColumn Header="№" Binding="{Binding Path=Rooms.Number}" Width="15*" />
-                    <DataGridHyperlinkColumn Header="Вместимость" Binding="{Binding Path=Rooms.Size}" Width="20*" />
+                    <DataGridHyperlinkColumn Header="Вместимость" Binding="{Binding Path=Rooms.Size}" Width="15*" />
+                    <DataGridHyperlinkColumn Header="Тип" Binding="{Binding Path=Rooms.RoomTypes.Type}" Width="20*" />
                     <DataGridTextColumn Header="Цена сут." Binding="{Binding Path=Rooms.Price}"  Width="20*" />
                     <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Coast}" Width="20*" />
                     <DataGridTextColumn Header="ФИО &#13;клиента" Binding="{Binding Path=FIO}"  Width="20*" />
-                    <DataGridTextColumn Header="Дата &#13;заезда" Binding="{Binding Path=DateStartStr}"  Width="20*" />
-                    <DataGridTextColumn Header="Дата &#13;выезда" Binding="{Binding Path=DateEndStr}"  Width="20*" />
+                    <DataGridTextColumn Header="Дата &#13;заезда" Binding="{Binding Path=DateStartStr}"  Width="15*" />
+                    <DataGridTextColumn Header="Дата &#13;выезда" Binding="{Binding Path=DateEndStr}"  Width="15*" />
                     <DataGridTemplateColumn Width="10*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -88,71 +89,100 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Grid Grid.Column="2"  UseLayoutRounding="False">
+            <Grid Grid.Column="2"  UseLayoutRounding="False" Margin="0,20,0,0">
+                <!-- <ScrollViewer Margin="0,20,0,0">
+                    <Grid>-->
                 <Grid.RowDefinitions>
-                    <RowDefinition  Height="15*"></RowDefinition>
-                    <RowDefinition  Height="20*"></RowDefinition>
-                    <RowDefinition  Height="20*"></RowDefinition>
-                    <RowDefinition  Height="20*"></RowDefinition>
-                    <RowDefinition  Height="20*"></RowDefinition>
-                    <RowDefinition  Height="20*"></RowDefinition>
-                    <RowDefinition  Height="20*"></RowDefinition>
+                    <RowDefinition  Height="50"></RowDefinition>
+                    <RowDefinition  Height="65"></RowDefinition>
+                    <RowDefinition  Height="65"></RowDefinition>
+                    <RowDefinition  Height="65"></RowDefinition>
+                    <RowDefinition  Height="130"></RowDefinition>
+                    <RowDefinition  Height="125"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Rectangle Grid.Row="0" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
                 <Rectangle Grid.Row="1" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
                 <Rectangle Grid.Row="2" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
                 <Rectangle Grid.Row="3" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
                 <Rectangle Grid.Row="4" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
-                <Rectangle Grid.Row="5" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
-                
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="10*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="Label_findTitle" Grid.Row="0" Content="Критерии поиска"  VerticalAlignment="Center"  HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="10,8,60,10"/>
+                    <Button x:Name="Button_resetFilter" Content="X" HorizontalAlignment="Right" Margin="143,13,20,0" VerticalAlignment="Top" Width="27" FontWeight="Bold" Click="Button_resetFilter_click"/>
+                </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="10*"></RowDefinition>
                         <RowDefinition  Height="20*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label x:Name="Label_passport" Grid.Row="0" Content="Паспорт" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                    <TextBox x:Name="TextBox_findPassport" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                    <Label x:Name="Label_Number" Grid.Row="0" Content="Комната №" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="TextBox_Number" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_Number_TextChanged"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="10*"></RowDefinition>
                         <RowDefinition  Height="20*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label x:Name="Label_secondName" Grid.Row="0" Content="Фамилия" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                    <TextBox x:Name="TextBox_findSecondName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                    <Label x:Name="Label_Size" Grid.Row="0" Content="Вместимость" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
+                    <ComboBox x:Name="ComboBox_Size" Margin="10,10,5,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="ComboBox_Size_SelectionChanged"/>
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="10*"></RowDefinition>
-                        <RowDefinition  Height="20*"></RowDefinition>
+                        <RowDefinition  Height="20*">
+                        </RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label x:Name="Label_firstName" Grid.Row="0" Content="Имя" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                    <TextBox x:Name="TextBox_findFirstName" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                    <Label x:Name="Label_Price" Grid.Row="0" Content="Цена" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
+                    <Grid  Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*" />
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TextBox_PriceFrom" Grid.Column="0" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_PriceFrom_TextChanged"/>
+                        <TextBox x:Name="TextBox_PriceTo" Grid.Column="1" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_PriceTo_TextChanged"/>
+
+                    </Grid>
                 </Grid>
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="10*"></RowDefinition>
                         <RowDefinition  Height="20*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label x:Name="Label_patronymic" Grid.Row="0" Content="Отчество" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                    <TextBox x:Name="TextBox_findPatronymic" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                    <Label x:Name="Label_FIO" Grid.Row="0" Content="Ф.И.О." VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="TextBox_FirstName" Height="23" Margin="119,0,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_FirstName_TextChanged" Grid.Row="1"/>
+                    <TextBox x:Name="TextBox_SecondName" Height="23" Margin="119,26,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_SecondName_TextChanged" Grid.Row="1"/>
+                    <TextBox x:Name="TextBox_Patronymic" Height="23" Margin="119,52,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_Patronymic_TextChanged" Grid.Row="1"/>
+                    <Label Content="Имя" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label Content="Фамилия" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label Content="Отчество" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                 </Grid>
                 <Grid Grid.Row="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition  Height="10*"></RowDefinition>
+                        <RowDefinition  Height="5*"></RowDefinition>
                         <RowDefinition  Height="20*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label x:Name="Label_phone" Grid.Row="0" Content="Телефон" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
-                    <TextBox x:Name="TextBox_findPhone" Grid.Row="1" Height="23" Margin="5,10,5,5" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                    <Label x:Name="Label_Dates" Grid.Row="0" Content="Даты" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
+                    <Grid  Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*" />
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="0" Margin="0,27,0,0" VerticalAlignment="Top"/>
+                        <DatePicker x:Name="DatePicker_StartFrom" Margin="10,10,10,0" VerticalAlignment="Top" SelectedDateChanged="DatePicker_StartFrom_SelectedDateChanged"/>
+                        <DatePicker x:Name="DatePicker_StartTo" Margin="10,60,10,0" VerticalAlignment="Top" SelectedDateChanged="DatePicker_StartTo_SelectedDateChanged"/>
+                        <DatePicker x:Name="DatePicker_EndFrom" Grid.Column="2" Margin="10,10,10,0" VerticalAlignment="Top" SelectedDateChanged="DatePicker_EndFrom_SelectedDateChanged"/>
+                        <DatePicker x:Name="DatePicker_EndTo" Grid.Column="2" Margin="10,60,10,0" VerticalAlignment="Top" SelectedDateChanged="DatePicker_EndTo_SelectedDateChanged"/>
+                        <Label Content="От" Grid.Column="1" HorizontalContentAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                        <Label Content="До" Grid.Column="1" HorizontalContentAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top"/>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Row="6">
-                    <Grid.RowDefinitions>
-                        <RowDefinition  Height="10*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <!--
-                    <Button x:Name="Button_findClient" Content="Поиск" Padding="1" ScrollViewer.CanContentScroll="True" Margin="10" Click="Button_findClient_click"></Button>
-                    -->
-                </Grid>
+                <Button x:Name="Button_resetDateFilter" Content="X" HorizontalAlignment="Right" Margin="0,5,10,0" Grid.Row="5" VerticalAlignment="Top" Width="29" FontWeight="Bold" Click="Button_resetDateFilter_Click"/>
+
+                <!--      </Grid>
+                </ScrollViewer> -->
             </Grid>
             <Button x:Name="Button_createOrder" Content="Оформить заказ" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="140" Click="Button_createOrder_click" Height="35" Grid.ColumnSpan="2"/>
 

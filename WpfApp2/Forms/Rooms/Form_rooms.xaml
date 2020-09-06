@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.Forms.Rooms"
         mc:Ignorable="d"
-        Title="Апартаменты" Height="470" Width="800" MinHeight="470" MinWidth="800">
+        Title="Апартаменты" Height="470" Width="800" MinHeight="470" MinWidth="800" Icon="/WpfApp2;component/hotel.ico" >
 
     <Grid>
         <Grid.ColumnDefinitions>

@@ -409,6 +409,9 @@
     <Content Include="db.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Forms\Rooms\hotel.ico" />
+    <Resource Include="Forms\Order\hotel.ico" />
+    <Resource Include="hotel.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

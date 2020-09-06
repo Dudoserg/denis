@@ -32,11 +32,17 @@ namespace WpfApp2
         List<Entity.RoomTypes> roomTypesList;
         List<Entity.Clients> clientsList;
         List<Entity.Order_entity> ordersList;
+        List<Entity.Order_entity> ordersList_table;
+        
+        string emptyComboBoxItem = "--\\--";
         
         public MainWindow()
         {
             InitializeComponent();
 
+            ComboBox_Size.Items.Add(emptyComboBoxItem);
+            Entity.Rooms.initComboboxSize(ComboBox_Size);
+            
             updateDataGrid();
         }
 
@@ -48,12 +54,18 @@ namespace WpfApp2
             roomsList = Entity.Rooms.init_Rooms(db);
             clientsList = Clients.init_Clients(db);
             ordersList = Order_entity.init_Orders(db);
+
+            ordersList_table = new List<Order_entity>();
+            foreach (var order in ordersList)
+            {
+                ordersList_table.Add(order);
+            }
             
             DateTime now = DateTime.Now;
 
             ObservableCollection<Order_entity> items = new ObservableCollection<Order_entity>(ordersList) { };
             
-            DataGrid_orders.ItemsSource = items;
+            DataGrid_orders.ItemsSource = ordersList_table;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -80,6 +92,7 @@ namespace WpfApp2
             Form_clients form = new Form_clients();
 
             form.Owner = this;
+            form.Closed += new EventHandler((o, args) => updateDataGrid());
             form.ShowDialog();
         }
         // кнопка меню комнаты
@@ -88,6 +101,7 @@ namespace WpfApp2
             Form_rooms form = new Form_rooms();
 
             form.Owner = this;
+            form.Closed += new EventHandler((o, args) => updateDataGrid());
             form.ShowDialog();
         }
 
@@ -103,6 +117,7 @@ namespace WpfApp2
             Form_createOrder form = new Form_createOrder(null);
 
             form.Owner = this;
+            form.Closed += new EventHandler((o, args) => updateDataGrid());
             form.ShowDialog();
         }
         // кнопка меню справка
@@ -116,6 +131,8 @@ namespace WpfApp2
             Form_createOrder form = new Form_createOrder(null);
 
             form.Owner = this;
+            form.Closed += new EventHandler((o, args) => updateDataGrid());
+
             form.ShowDialog();
         }
 
@@ -126,6 +143,7 @@ namespace WpfApp2
 
             Form_createOrder form = new Form_createOrder(order);
             form.Owner = this;
+            form.Closed += new EventHandler((o, args) => updateDataGrid());
             form.ShowDialog();
         }
 
@@ -137,6 +155,141 @@ namespace WpfApp2
         private void MenuItem_mainPage(object sender, RoutedEventArgs e)
         {
             updateDataGrid();
+        }
+
+        private void Button_resetFilter_click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        // Дата заселения ОТ
+        private void DatePicker_StartFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        // Дата заселения ДО
+        private void DatePicker_StartTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        // Дата выезда ОТ
+        private void DatePicker_EndFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+        // Дата выезда ДО
+        private void DatePicker_EndTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+
+        private void TextBox_PriceFrom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        private void TextBox_PriceTo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        private void ComboBox_Size_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBox_Size.SelectedItem is string && (string)ComboBox_Size.SelectedItem == this.emptyComboBoxItem)
+                ComboBox_Size.SelectedIndex = -1;
+            findRowsByFilter();
+        }
+
+        private void TextBox_Number_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        public  void findRowsByFilter()
+        {
+            int find_priceFrom = TextBox_PriceFrom.Text == "" ? -1 : Int32.Parse(TextBox_PriceFrom.Text);
+            int find_priceTo = TextBox_PriceTo.Text == "" ? Int32.MaxValue : Int32.Parse(TextBox_PriceTo.Text);
+            int find_size = ComboBox_Size.SelectedIndex > -1 ? (int)ComboBox_Size.SelectedItem : -1;
+            int find_number = TextBox_Number.Text == "" ? -1 : Int32.Parse(TextBox_Number.Text);
+
+            string find_firstName = TextBox_FirstName.Text;
+            string find_secondName = TextBox_SecondName.Text;
+            string find_patronymic = TextBox_Patronymic.Text;
+
+            DateTime? dateStartFrom = DatePicker_StartFrom.SelectedDate;
+            DateTime? dateStartTo = DatePicker_StartTo.SelectedDate;
+
+            DateTime? dateEndFrom = DatePicker_EndFrom.SelectedDate;
+            DateTime? dateEndTo = DatePicker_EndTo.SelectedDate;
+            
+            ordersList_table  = new List<Order_entity> { };
+
+            foreach (var order in ordersList)
+            {
+                bool isAdding = true;
+
+
+                if (!(find_priceFrom <= order.Rooms.Price && order.Rooms.Price <= find_priceTo))
+                    isAdding = false;
+
+                if (find_size >= 0 && order.Rooms.Size != find_size)
+                    isAdding = false;
+
+                if (find_number >= 0 && find_number != order.Rooms.Number)
+                    isAdding = false;
+
+                if (find_firstName.Length != 0 && !order.Clients.FirstName.ToLower().Contains(find_firstName.ToLower()))
+                    isAdding = false;
+                
+                if (find_secondName.Length != 0 && !order.Clients.SecondName.ToLower().Contains(find_secondName.ToLower()))
+                    isAdding = false;
+                
+                if (find_patronymic.Length != 0 && !order.Clients.Patronymic.ToLower().Contains(find_patronymic.ToLower()))
+                    isAdding = false;
+
+                if (dateStartFrom != null && order.DateStart < dateStartFrom )
+                    isAdding = false;
+                
+                if (dateStartTo != null && dateStartTo < order.DateStart )
+                    isAdding = false;
+                
+                if (dateEndFrom != null && order.DateEnd < dateEndFrom )
+                    isAdding = false;
+                
+                if (dateEndTo != null && dateEndTo < order.DateEnd )
+                    isAdding = false;
+
+                if (isAdding)
+                    ordersList_table.Add(order);
+            }
+            DataGrid_orders.ItemsSource = ordersList_table;
+
+        }
+
+        private void TextBox_FirstName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        private void TextBox_SecondName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        private void TextBox_Patronymic_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findRowsByFilter();
+        }
+
+        private void Button_resetDateFilter_Click(object sender, RoutedEventArgs e)
+        {
+            DatePicker_StartFrom.SelectedDate = null;
+            DatePicker_StartTo.SelectedDate = null;
+            DatePicker_EndFrom.SelectedDate = null;
+            DatePicker_EndTo.SelectedDate = null;
         }
     }
 }

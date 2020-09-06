@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.Forms"
         mc:Ignorable="d"
-        Title="Добавление клиента" Height="300" Width="600">
+        Title="Добавление клиента" Height="300" Width="600" Icon="/WpfApp2;component/hotel.ico" MinWidth="600" MinHeight="300" MaxWidth="600" MaxHeight="300">
     <Grid>
         <Label x:Name="Label_passport" Content="Паспорт" HorizontalAlignment="Left" Margin="48,22,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextBox_passport" HorizontalAlignment="Left" Height="23" Margin="118,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
