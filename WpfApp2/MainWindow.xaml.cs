@@ -40,7 +40,7 @@ namespace WpfApp2
             updateDataGrid();
         }
 
-        private void updateDataGrid()
+        public void updateDataGrid()
         {
             db = new ApplicationContext();
             
@@ -100,7 +100,7 @@ namespace WpfApp2
         // кнопка меню оформить заказ
         private void MenuItem_createOrder_click(object sender, RoutedEventArgs e)
         {
-            Form_createOrder form = new Form_createOrder();
+            Form_createOrder form = new Form_createOrder(null);
 
             form.Owner = this;
             form.ShowDialog();
@@ -113,12 +113,20 @@ namespace WpfApp2
 
         private void Button_createOrder_click(object sender, RoutedEventArgs e)
         {
+            Form_createOrder form = new Form_createOrder(null);
 
+            form.Owner = this;
+            form.ShowDialog();
         }
 
         private void Button_editRow_click(object sender, RoutedEventArgs e)
         {
+            Order_entity order = ((FrameworkElement)sender).DataContext as Order_entity;
+            Console.WriteLine("clicked edit row  id = " + order.Id);
 
+            Form_createOrder form = new Form_createOrder(order);
+            form.Owner = this;
+            form.ShowDialog();
         }
 
         private void Button_delRow_click(object sender, RoutedEventArgs e)

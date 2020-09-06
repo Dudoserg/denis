@@ -32,8 +32,12 @@ namespace WpfApp2.Forms.Order
 
         string emptyComboBoxItem = "--\\--";
 
-        public Form_createOrder()
+        Order_entity order_editing = null;
+
+        public Form_createOrder(Order_entity o)
         {
+            this.order_editing = o;
+
             InitializeComponent();
 
             db = new ApplicationContext();
@@ -65,6 +69,46 @@ namespace WpfApp2.Forms.Order
                 now.Year,
                 now.Month - 1 < 1 ? 1 : now.Month - 1,
                 1);
+
+            if (order_editing != null)
+            {
+                // edit mod
+
+                this.selectedRoom = order_editing.Rooms;
+                
+                // инфа о выбранном пользователе
+                TextBox_passport.Text = order_editing.Clients.Passport;
+                TextBox_firstName.Text = order_editing.Clients.FirstName;
+                TextBox_secondName.Text = order_editing.Clients.SecondName;
+                TextBox_patronymic.Text = order_editing.Clients.Patronymic;
+                TextBox_phone.Text = order_editing.Clients.Phone;
+                
+                // достаем заказы с выбранной комнатой
+                OrderRepos orderRepos = new OrderRepos(db);
+                List<Order_entity> selectedRoomOrderList = orderRepos.GetByRoom(order_editing.RoomsId);
+
+                // помечаем календарь крестиками
+                Calendar_.BlackoutDates.Clear();
+                Calendar_.SelectedDates.Clear();
+                foreach (Order_entity order in selectedRoomOrderList)
+                {
+                    if(order.Id != order_editing.Id)
+                    {
+                        Calendar_.BlackoutDates.Add(
+                            new CalendarDateRange(order.DateStart, order.DateEnd)
+                        );
+                    }
+                    
+                }
+                // помечаем на календаре выбранные дни для текущего заказа
+                Calendar_.SelectedDates.Clear();
+                for (DateTime date = order_editing.DateStart;
+                    order_editing.DateEnd.AddDays(1).CompareTo(date) > 0;
+                    date = date.AddDays(1.0))
+                {
+                    Calendar_.SelectedDates.Add(date);
+                }
+            }
         }
 
         // Фильтруем доступные комнаты по фильтру
@@ -486,19 +530,54 @@ namespace WpfApp2.Forms.Order
                 db.SaveChanges();
             }
 
-            Order_entity order = new Order_entity();
-            order.ClientsId = client.Id;
-            order.Clients = client;
+            if (this.order_editing == null)
+            {
+                // create mod
+                Order_entity order = new Order_entity();
+                order.ClientsId = client.Id;
+                order.Clients = client;
 
-            order.RoomsId = selectedRoom.Id;
-            order.Rooms = selectedRoom;
+                order.RoomsId = selectedRoom.Id;
+                order.Rooms = selectedRoom;
 
-            SelectedDatesCollection calendarSelectedDates = Calendar_.SelectedDates;
-            order.DateStart = calendarSelectedDates[0];
-            order.DateEnd = calendarSelectedDates[calendarSelectedDates.Count - 1];
+                SelectedDatesCollection calendarSelectedDates = Calendar_.SelectedDates;
+                order.DateStart = calendarSelectedDates[0];
+                order.DateEnd = calendarSelectedDates[calendarSelectedDates.Count - 1];
 
-            order = db.Orders.Add(order);
+                order = db.Orders.Add(order);
+            }
+            else
+            {
+                // edit mod
+                order_editing.ClientsId = client.Id;
+                order_editing.Clients = client;
+                
+                order_editing.RoomsId = selectedRoom.Id;
+                order_editing.Rooms = selectedRoom;
+                
+                SelectedDatesCollection calendarSelectedDates = Calendar_.SelectedDates;
+                order_editing.DateStart = calendarSelectedDates[0];
+                order_editing.DateEnd = calendarSelectedDates[calendarSelectedDates.Count - 1];
+                
+                // обновление записи в бд
+                using (var db = new ApplicationContext())
+                {
+                    db.Orders.Attach(order_editing);
+
+                    db.Entry(order_editing).Property(x => x.ClientsId).IsModified = true;
+                    db.Entry(order_editing).Property(x => x.RoomsId).IsModified = true;
+                    db.Entry(order_editing).Property(x => x.DateStart).IsModified = true;
+                    db.Entry(order_editing).Property(x => x.DateEnd).IsModified = true;
+
+                    db.SaveChanges();
+                }
+                // обновляем таблицу на родительской форме
+                ((MainWindow)this.Owner).updateDataGrid();
+            }
+         
             db.SaveChanges();
+            // закрываем текущую форму
+            this.Close();
         }
     }
 }
