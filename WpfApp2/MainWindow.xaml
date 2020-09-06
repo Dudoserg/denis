@@ -65,8 +65,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="10*" />
                     <DataGridTextColumn Header="№" Binding="{Binding Path=Rooms.Number}" Width="15*" />
-                    <DataGridHyperlinkColumn Header="Вместимость" Binding="{Binding Path=Rooms.Size}" Width="15*" />
-                    <DataGridHyperlinkColumn Header="Тип" Binding="{Binding Path=Rooms.RoomTypes.Type}" Width="20*" />
+                    <DataGridTextColumn Header="Вместимость" Binding="{Binding Path=Rooms.Size}" Width="15*" />
+                    <DataGridTextColumn Header="Тип" Binding="{Binding Path=Rooms.RoomTypes.Type}" Width="20*" />
                     <DataGridTextColumn Header="Цена сут." Binding="{Binding Path=Rooms.Price}"  Width="20*" />
                     <DataGridTextColumn Header="Стоимость" Binding="{Binding Path=Coast}" Width="20*" />
                     <DataGridTextColumn Header="ФИО &#13;клиента" Binding="{Binding Path=FIO}"  Width="20*" />

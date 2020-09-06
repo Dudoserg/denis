@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.Forms.Order"
         mc:Ignorable="d"
-        Title="Оформление заказа" Height="840" Width="800" Icon="/WpfApp2;component/hotel.ico" >
+        Title="Оформление заказа" Height="840" Width="800" Icon="hotel.ico" >
     <Grid>
         <ScrollViewer>
             <Grid>
@@ -58,7 +58,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="7*" />
                         <DataGridTextColumn Header="Паспорт" Binding="{Binding Path=Passport}" Width="20*" />
-                        <DataGridHyperlinkColumn Header="Имя" Binding="{Binding Path=FirstName}" Width="20*" />
+                        <DataGridTextColumn Header="Имя" Binding="{Binding Path=FirstName}" Width="20*" />
                         <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=SecondName}"  Width="20*" />
                         <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}" Width="20*" />
                         <DataGridTextColumn Header="Номер" Binding="{Binding Path=Phone}"  Width="20*" />

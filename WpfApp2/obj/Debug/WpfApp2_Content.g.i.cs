@@ -8,11 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sqlite3.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sqlite3.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("db.db")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("e_sqlite3.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("e_sqlite3.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("e_sqlite3.dll")]
 
 

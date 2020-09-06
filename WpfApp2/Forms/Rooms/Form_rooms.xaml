@@ -91,7 +91,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="10*" />
                 <DataGridTextColumn Header="Номер" Binding="{Binding Path=Number}" Width="15*" />
-                <DataGridTextColumn Header="Тип номера" Binding="{Binding Path=Type.Type}" Width="20*" />
+                <DataGridTextColumn Header="Тип номера" Binding="{Binding Path=RoomTypes.Type}" Width="20*" />
                 <DataGridTextColumn Header="Вместимость" Binding="{Binding Path=Size}"  Width="20*" />
                 <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}" Width="20*" />
                 <DataGridTemplateColumn Width="10*">

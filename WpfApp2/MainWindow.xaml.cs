@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,12 +39,26 @@ namespace WpfApp2
         
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            ComboBox_Size.Items.Add(emptyComboBoxItem);
-            Entity.Rooms.initComboboxSize(ComboBox_Size);
+                ComboBox_Size.Items.Add(emptyComboBoxItem);
+                Entity.Rooms.initComboboxSize(ComboBox_Size);
+
+                updateDataGrid();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                using (StreamWriter writetext = new StreamWriter("_logs.txt"))
+                {
+                    writetext.WriteLine(ex.Message);
+                    writetext.WriteLine("\n");
+                    writetext.WriteLine(ex.ToString());
+                }
+            }
             
-            updateDataGrid();
         }
 
         public void updateDataGrid()
@@ -123,7 +138,22 @@ namespace WpfApp2
         // кнопка меню справка
         private void MenuItem_info_click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("author: Nagibator228");
+            
+            try
+            {
+                string[] lines = File.ReadAllLines("_data/data.txt");
+                MessageBox.Show("author: " + lines[0]);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                using (StreamWriter writetext = new StreamWriter("_logs.txt"))
+                {
+                    writetext.WriteLine(ex.Message);
+                    writetext.WriteLine("\n");
+                    writetext.WriteLine(ex.ToString());
+                }
+            }
         }
 
         private void Button_createOrder_click(object sender, RoutedEventArgs e)
@@ -149,7 +179,31 @@ namespace WpfApp2
 
         private void Button_delRow_click(object sender, RoutedEventArgs e)
         {
+            Order_entity order = ((FrameworkElement)sender).DataContext as Order_entity;
 
+            MessageBoxResult messageBoxResult = 
+                System.Windows.MessageBox.Show(
+                    "Вы действительно хотите удалить комнату №" + order.Id,
+                    "Delete Confirmation",
+                    System.Windows.MessageBoxButton.YesNo
+                );
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Console.WriteLine("clicked delete row id = " + order.Id);
+
+                // Проверяем, нет ли зависимых от это строки записей
+                using (var context = new ApplicationContext())
+                {
+                    var deletedCustomer = context.Orders.Where(c => c.Id == order.Id).FirstOrDefault();
+                    context.Orders.Remove(deletedCustomer);
+                    context.SaveChanges();
+                }
+
+                db.SaveChanges();
+
+                this.updateDataGrid();
+            }
         }
 
         private void MenuItem_mainPage(object sender, RoutedEventArgs e)

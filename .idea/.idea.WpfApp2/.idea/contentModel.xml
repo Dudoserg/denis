@@ -6,27 +6,7 @@
     <e p="C:\Users\Dudoserg\.Rider2019.2\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Dudoserg\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_WpfApp2.-815619010.00" t="ExcludeRecursive" />
     <e p="C:\Users\Dudoserg\source\repos\WpfApp2" t="IncludeFlat">
-      <e p="packages" t="ExcludeRecursive">
-        <e p="SQLite.3.13.0\runtimes\win7-x64\native\sqlite3.dll" t="Include" />
-        <e p="SQLite.3.13.0\runtimes\win7-x86\native\sqlite3.dll" t="Include" />
-        <e p="SQLitePCLRaw.lib.e_sqlite3.2.0.2\runtimes" t="Include">
-          <e p="win-arm" t="Include">
-            <e p="native" t="Include">
-              <e p="e_sqlite3.dll" t="Include" />
-            </e>
-          </e>
-          <e p="win-x64" t="Include">
-            <e p="native" t="Include">
-              <e p="e_sqlite3.dll" t="Include" />
-            </e>
-          </e>
-          <e p="win-x86" t="Include">
-            <e p="native" t="Include">
-              <e p="e_sqlite3.dll" t="Include" />
-            </e>
-          </e>
-        </e>
-      </e>
+      <e p="packages" t="ExcludeRecursive" />
       <e p="WpfApp2" t="IncludeRecursive">
         <e p="App.config" t="Include" />
         <e p="App.xaml" t="Include" />
@@ -77,8 +57,6 @@
           <e p="OrderRepos.cs" t="Include" />
         </e>
         <e p="WpfApp2.csproj" t="IncludeRecursive" />
-        <e p="x64" t="Include" />
-        <e p="x86" t="Include" />
       </e>
       <e p="WpfApp2.sln" t="IncludeFlat" />
     </e>

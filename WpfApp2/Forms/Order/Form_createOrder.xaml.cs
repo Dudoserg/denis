@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
@@ -61,7 +61,20 @@ namespace WpfApp2.Forms.Order
 
             updateDataGridRooms();
 
-            updateDataGridClients();
+            try
+            {
+                updateDataGridClients();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                using (StreamWriter writetext = new StreamWriter("_logs.txt"))
+                {
+                    writetext.WriteLine(ex.Message);
+                    writetext.WriteLine("\n");
+                    writetext.WriteLine(ex.ToString());
+                }
+            }
 
             DateTime now = DateTime.Now;
             Calendar_.SelectionMode = CalendarSelectionMode.MultipleRange;
@@ -215,7 +228,7 @@ namespace WpfApp2.Forms.Order
         {
             Entity.Rooms currentRoom = (Entity.Rooms) DataGrid_rooms.SelectedItem;
             this.selectedRoom = currentRoom;
-            MessageBox.Show("double click #" + currentRoom.Price);
+//            MessageBox.Show("double click #" + currentRoom.Price);
             updateLabelStatusRoom();
             UpdateCalendar();
         }
@@ -319,7 +332,7 @@ namespace WpfApp2.Forms.Order
             isNewClient = false;
             isOldClient = false;
             // проверяем, чтобы пользователя с таким паспортом не было, т.к. паспорт должен быть уникален
-            Clients tmp_clientWithExistingPassport = db.Clients.Where(c => c.Passport == findPassport).FirstOr(null);
+            Clients tmp_clientWithExistingPassport = db.Clients.Where(c => c.Passport == findPassport).FirstOrDefault();
             if (tmp_clientWithExistingPassport != null)
             {
                 // Клиент с таким же паспортом уже существует

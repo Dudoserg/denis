@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -120,7 +119,7 @@ namespace WpfApp2.Forms.Rooms
                     using (var db = new ApplicationContext())
                     {
                         db.Rooms.Load();
-                        Entity.Rooms r = db.Rooms.Where(rm => rm.Number == number).FirstOr(null);
+                        Entity.Rooms r = db.Rooms.Where(rm => rm.Number == number).FirstOrDefault();
                         if (r != null)
                         {
                             MessageBox.Show("Номер с таким индексом(" + number + ") уже существует");

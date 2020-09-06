@@ -1,0 +1,5 @@
+Выдано исключение типа "System.Exception".
+
+
+System.Exception: Выдано исключение типа "System.Exception".
+   в WpfApp2.Forms.Order.Form_createOrder..ctor(Order_entity o) в C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\Forms\Order\Form_createOrder.xaml.cs:строка 67
