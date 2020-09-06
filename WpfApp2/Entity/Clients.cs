@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp2.Repos;
 
 namespace WpfApp2.Entity
 {
@@ -90,6 +92,16 @@ namespace WpfApp2.Entity
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+        
+        
+        public static List<Entity.Clients> init_Clients(DbContext db)
+        {
+            // создаем репозиторий комнат, для работы с бд
+            db.Set<Clients>().Load();
+            EFGenericRepository<Entity.Clients> clientsRepo = new EFGenericRepository<Entity.Clients>(db);
+            List<Entity.Clients> tmpList = (List<Entity.Clients>) clientsRepo.Get();
+            return tmpList;
         }
     }
 }

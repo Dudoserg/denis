@@ -62,7 +62,7 @@ namespace WpfApp2.Forms.Rooms
                 // change mod
                 TextBox_number.Text = editRoom.Number.ToString();
                 TextBox_price.Text = editRoom.Price.ToString();
-                Combobox_roomType.SelectedItem = roomTypesList.Find(x => x.Id == editRoom.TypeId); ;
+                Combobox_roomType.SelectedItem = roomTypesList.Find(x => x.Id == editRoom.RoomTypesId); ;
                 Combobox_size.SelectedItem = editRoom.Size;
                 Button_createRoom.Content = "Изменить номер";
                 this.Title = "Изменение информации о номере";
@@ -132,8 +132,8 @@ namespace WpfApp2.Forms.Rooms
                 // createEntity
                 editRoom.Price = price;
                 editRoom.Size = size;
-                editRoom.TypeId = roomType.Id;
-                editRoom.Type = roomType;
+                editRoom.RoomTypesId = roomType.Id;
+                editRoom.RoomTypes = roomType;
                 editRoom.Number = number;
 
                 // обновление записи в бд
@@ -141,7 +141,7 @@ namespace WpfApp2.Forms.Rooms
                 {
                     db.Rooms.Attach(editRoom);
 
-                    db.Entry(editRoom).Property(x => x.TypeId).IsModified = true;
+                    db.Entry(editRoom).Property(x => x.RoomTypesId).IsModified = true;
                     db.Entry(editRoom).Property(x => x.Size).IsModified = true;
                     db.Entry(editRoom).Property(x => x.Price).IsModified = true;
                     db.Entry(editRoom).Property(x => x.Number).IsModified = true;
@@ -156,7 +156,7 @@ namespace WpfApp2.Forms.Rooms
                 Entity.Rooms room = new Entity.Rooms();
                 room.Price = price;
                 room.Size = size;
-                room.TypeId = roomType.Id;
+                room.RoomTypesId = roomType.Id;
                 room.Number = number;
 
                 db.Rooms.Add(room);

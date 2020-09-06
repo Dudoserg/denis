@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2.Entity;
 using WpfApp2.Forms;
 using WpfApp2.Forms.Order;
 using WpfApp2.Forms.Rooms;
@@ -26,28 +28,32 @@ namespace WpfApp2
     {
         ApplicationContext db;
 
+        List<Entity.Rooms> roomsList;
+        List<Entity.RoomTypes> roomTypesList;
+        List<Entity.Clients> clientsList;
+        List<Entity.Order_entity> ordersList;
+        
         public MainWindow()
         {
             InitializeComponent();
 
-            db = new ApplicationContext();
-            db.Phones.Load();
+            updateDataGrid();
+        }
 
+        private void updateDataGrid()
+        {
+            db = new ApplicationContext();
+            
+            roomTypesList =  RoomTypes.init_RoomTypes(db);
+            roomsList = Entity.Rooms.init_Rooms(db);
+            clientsList = Clients.init_Clients(db);
+            ordersList = Order_entity.init_Orders(db);
+            
             DateTime now = DateTime.Now;
 
-
-
-
-            Calendar.BlackoutDates.Add(
-                new CalendarDateRange(new DateTime(2020, 9, 1), new DateTime(2020, 9, 8))
-            );
-            Calendar.SelectionMode = CalendarSelectionMode.MultipleRange;
-
-
-            Calendar.DisplayDateStart = new DateTime(now.Year, now.Month, 1);
-
-
-
+            ObservableCollection<Order_entity> items = new ObservableCollection<Order_entity>(ordersList) { };
+            
+            DataGrid_orders.ItemsSource = items;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -102,7 +108,27 @@ namespace WpfApp2
         // кнопка меню справка
         private void MenuItem_info_click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("created By ...");
+            MessageBox.Show("author: Nagibator228");
+        }
+
+        private void Button_createOrder_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_editRow_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_delRow_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_mainPage(object sender, RoutedEventArgs e)
+        {
+            updateDataGrid();
         }
     }
 }

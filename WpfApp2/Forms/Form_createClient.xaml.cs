@@ -65,9 +65,9 @@ namespace WpfApp2.Forms
                     MessageBox.Show("Клиент с пасспортом '" + passport + "' уже существует");
                     return;
                 }
-                if (passport.Length < 5)
+                if (passport.Length != 10)
                 {
-                    MessageBox.Show("длина номера паспорта не может быть меньше 5 символов!");
+                    MessageBox.Show("длина номера паспорта должна быть 10 символов!");
                     return;
                 }
 
@@ -118,9 +118,9 @@ namespace WpfApp2.Forms
                     MessageBox.Show("Клиент с пасспортом '" + passport + "' уже существует");
                     return;
                 }
-                if(passport.Length < 5)
+                if(passport.Length != 10)
                 {
-                    MessageBox.Show("длина номера паспорта не может быть меньше 5 символов!");
+                    MessageBox.Show("длина номера паспорта должна быть 10 символов!");
                     return;
                 }
 

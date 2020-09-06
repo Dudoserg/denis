@@ -9,8 +9,8 @@ namespace WpfApp2.Repos
 {
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        DbContext _context;
-        DbSet<TEntity> _dbSet;
+        protected DbContext _context;
+        protected DbSet<TEntity> _dbSet;
 
         public EFGenericRepository(DbContext context)
         {

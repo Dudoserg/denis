@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Dudoserg\.Rider2019.2\config\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\Dudoserg\.Rider2019.2\config\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\Dudoserg\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Dudoserg\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_WpfApp2.-815619010.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Dudoserg\source\repos\WpfApp2" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive">
+        <e p="SQLite.3.13.0\runtimes\win7-x64\native\sqlite3.dll" t="Include" />
+        <e p="SQLite.3.13.0\runtimes\win7-x86\native\sqlite3.dll" t="Include" />
+        <e p="SQLitePCLRaw.lib.e_sqlite3.2.0.2\runtimes" t="Include">
+          <e p="win-arm" t="Include">
+            <e p="native" t="Include">
+              <e p="e_sqlite3.dll" t="Include" />
+            </e>
+          </e>
+          <e p="win-x64" t="Include">
+            <e p="native" t="Include">
+              <e p="e_sqlite3.dll" t="Include" />
+            </e>
+          </e>
+          <e p="win-x86" t="Include">
+            <e p="native" t="Include">
+              <e p="e_sqlite3.dll" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="WpfApp2" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="App.xaml" t="Include" />
+        <e p="App.xaml.cs" t="Include" />
+        <e p="ApplicationContext.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="db.db" t="Include" />
+        <e p="Entity" t="Include">
+          <e p="Clients.cs" t="Include" />
+          <e p="Order_entity.cs" t="Include" />
+          <e p="Rooms.cs" t="Include" />
+          <e p="RoomTypes.cs" t="Include" />
+        </e>
+        <e p="Forms" t="Include">
+          <e p="Form_clients.xaml" t="Include" />
+          <e p="Form_clients.xaml.cs" t="Include" />
+          <e p="Form_createClient.xaml" t="Include" />
+          <e p="Form_createClient.xaml.cs" t="Include" />
+          <e p="Order" t="Include">
+            <e p="Form_createOrder.xaml" t="Include" />
+            <e p="Form_createOrder.xaml.cs" t="Include" />
+          </e>
+          <e p="Rooms" t="Include">
+            <e p="Form_createRoom.xaml" t="Include" />
+            <e p="Form_createRoom.xaml.cs" t="Include" />
+            <e p="Form_rooms.xaml" t="Include" />
+            <e p="Form_rooms.xaml.cs" t="Include" />
+          </e>
+        </e>
+        <e p="MainWindow.xaml" t="Include" />
+        <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Phone.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="repos" t="Include">
+          <e p="EFGenericRepository.cs" t="Include" />
+          <e p="IGenericRepository.cs" t="Include" />
+          <e p="OrderRepos.cs" t="Include" />
+        </e>
+        <e p="WpfApp2.csproj" t="IncludeRecursive" />
+        <e p="x64" t="Include" />
+        <e p="x86" t="Include" />
+      </e>
+      <e p="WpfApp2.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

@@ -321,6 +321,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entity\Order_entity.cs" />
     <Compile Include="Entity\Rooms.cs" />
     <Compile Include="Forms\Order\Form_createOrder.xaml.cs">
       <DependentUpon>Form_createOrder.xaml</DependentUpon>
@@ -333,6 +334,7 @@
     </Compile>
     <Compile Include="Repos\EFGenericRepository.cs" />
     <Compile Include="Repos\IGenericRepository.cs" />
+    <Compile Include="Repos\OrderRepos.cs" />
     <Page Include="Forms\Form_clients.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

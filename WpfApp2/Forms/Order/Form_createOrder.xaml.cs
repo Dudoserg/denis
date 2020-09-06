@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,6 +28,7 @@ namespace WpfApp2.Forms.Order
         List<Entity.Rooms> roomsList;
         List<Entity.RoomTypes> roomTypesList;
         List<Entity.Clients> clientsList;
+        List<Order_entity> ordersList;
 
         string emptyComboBoxItem = "--\\--";
 
@@ -37,9 +39,10 @@ namespace WpfApp2.Forms.Order
             db = new ApplicationContext();
 
 
-            roomTypesList = init_RoomTypes();
-            roomsList = init_Rooms();
-            clientsList = init_Clients();
+            roomTypesList =  RoomTypes.init_RoomTypes(db);
+            roomsList = Entity.Rooms.init_Rooms(db);
+            clientsList = Clients.init_Clients(db);
+            ordersList = Order_entity.init_Orders(db);
 
             // инициализируем комбобокс с выбором типа комнаты
             ComboBox_roomType.Items.Add(emptyComboBoxItem);
@@ -55,57 +58,37 @@ namespace WpfApp2.Forms.Order
             updateDataGridRooms();
 
             updateDataGridClients();
-        }
 
-        public List<RoomTypes> init_RoomTypes()
-        {
-            // создаем репозиторий типов комнат, для работы с бд
-            db.RoomTypes.Load();
-            EFGenericRepository<Entity.RoomTypes> roomTypesRepo = new EFGenericRepository<Entity.RoomTypes>(db);
-            return (List<Entity.RoomTypes>)roomTypesRepo.Get();
+            DateTime now = DateTime.Now;
+            Calendar_.SelectionMode = CalendarSelectionMode.MultipleRange;
+            Calendar_.DisplayDateStart = new DateTime(
+                 now.Year,
+                now.Month - 1 < 1 ? 1 : now.Month - 1,
+                1);
         }
-        public List<Entity.Rooms> init_Rooms()
-        {
-            // создаем репозиторий комнат, для работы с бд
-            db.Rooms.Load();
-            EFGenericRepository<Entity.Rooms> roomsRepo = new EFGenericRepository<Entity.Rooms>(db);
-            List<Entity.Rooms> tmpList = (List<Entity.Rooms>)roomsRepo.Get();
-            // Т.к. EF не хочет устанавливать внешние связи, придется делать связи вручную
-            foreach (Entity.Rooms room in tmpList)
-            {
-                room.customInit(db.RoomTypes);
-            }
-            return tmpList;
-        }
-        public List<Entity.Clients> init_Clients()
-        {
-            // создаем репозиторий комнат, для работы с бд
-            db.Clients.Load();
-            EFGenericRepository<Entity.Clients> clientsRepo = new EFGenericRepository<Entity.Clients>(db);
-            List<Entity.Clients> tmpList = (List<Entity.Clients>)clientsRepo.Get();
-            return tmpList;
-        }
-
+        
         // Фильтруем доступные комнаты по фильтру
         private void findRoomsByFilter()
         {
-            RoomTypes findRoomType = ComboBox_roomType.SelectedIndex > -1 ? (RoomTypes)ComboBox_roomType.SelectedItem : null;
+            RoomTypes findRoomType = ComboBox_roomType.SelectedIndex > -1
+                ? (RoomTypes) ComboBox_roomType.SelectedItem
+                : null;
 
             int find_priceFrom = TextBox_priceFrom.Text == "" ? -1 : Int32.Parse(TextBox_priceFrom.Text);
             int find_priceTo = TextBox_priceTo.Text == "" ? Int32.MaxValue : Int32.Parse(TextBox_priceTo.Text);
-            int find_size = Combobox_size.SelectedIndex > -1 ? (int)Combobox_size.SelectedItem : -1;
+            int find_size = Combobox_size.SelectedIndex > -1 ? (int) Combobox_size.SelectedItem : -1;
 
 
             roomsList = new List<Entity.Rooms> { };
 
-            List<Entity.Rooms> tmp_roomsList = init_Rooms();
-            tmp_roomsList = init_Rooms();
+            List<Entity.Rooms> tmp_roomsList = Entity.Rooms.init_Rooms(db);
+            tmp_roomsList = Entity.Rooms.init_Rooms(db);
 
             foreach (Entity.Rooms room in tmp_roomsList)
             {
                 bool isAdding = true;
 
-                if (findRoomType != null && room.TypeId != findRoomType.Id)
+                if (findRoomType != null && room.RoomTypesId != findRoomType.Id)
                     isAdding = false;
 
                 if (!(find_priceFrom <= room.Price && room.Price <= find_priceTo))
@@ -117,16 +100,18 @@ namespace WpfApp2.Forms.Order
                 if (isAdding)
                     roomsList.Add(room);
             }
+
             DataGrid_rooms.ItemsSource = roomsList;
+            Label_statusRoom.Content = "";
         }
-        
+
         // Обновляем списко доступных комнат
         public void updateDataGridRooms()
         {
             db = new ApplicationContext();
 
-            roomTypesList = init_RoomTypes();
-            roomsList = init_Rooms();
+            roomTypesList =  RoomTypes.init_RoomTypes(db);
+            roomsList = Entity.Rooms.init_Rooms(db);
 
             DataGrid_rooms.ItemsSource = roomsList;
 
@@ -141,14 +126,15 @@ namespace WpfApp2.Forms.Order
 
         private void ComboBox_roomType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ComboBox_roomType.SelectedItem is string && (string)ComboBox_roomType.SelectedItem == this.emptyComboBoxItem)
+            if (ComboBox_roomType.SelectedItem is string &&
+                (string) ComboBox_roomType.SelectedItem == this.emptyComboBoxItem)
                 ComboBox_roomType.SelectedIndex = -1;
             findRoomsByFilter();
         }
 
         private void ComboBox_size_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Combobox_size.SelectedItem is string && (string)Combobox_size.SelectedItem == this.emptyComboBoxItem)
+            if (Combobox_size.SelectedItem is string && (string) Combobox_size.SelectedItem == this.emptyComboBoxItem)
                 Combobox_size.SelectedIndex = -1;
             findRoomsByFilter();
         }
@@ -178,15 +164,37 @@ namespace WpfApp2.Forms.Order
 
         private void DataGrid_rooms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Entity.Rooms selectedRoom = (Entity.Rooms)DataGrid_rooms.SelectedItem;
+            Entity.Rooms selectedRoom = (Entity.Rooms) DataGrid_rooms.SelectedItem;
             MessageBox.Show("double click #" + selectedRoom.Price);
-            Label_reservedTitle.Content = "Комната №" + selectedRoom.Number + "\tтип: " + selectedRoom.Type;
+            Label_statusRoom.Content = "Комната №" + selectedRoom.Number + "\tтип: " + selectedRoom.RoomTypes;
+            UpdateCalendar();
+        }
+
+        private void UpdateCalendar()
+        {
+            Entity.Rooms selectedRoom = (Entity.Rooms) DataGrid_rooms.SelectedItem;
+            List<Order_entity> ordersList = Order_entity.init_Orders(db);
+            
+            // достаем заказы с выбранной комнатой
+            OrderRepos orderRepos = new OrderRepos(db);
+            List<Order_entity> selectedRoomOrderList = orderRepos.GetByRoom(selectedRoom.Id);
+            
+            Calendar_.BlackoutDates.Clear();
+            foreach (Order_entity order in selectedRoomOrderList)
+            {
+                Calendar_.BlackoutDates.Add(
+                                new CalendarDateRange(order.DateStart, order.DateEnd)
+                            );
+            }
+            
+            int a = 2;
         }
 
         private void TextBox_priceFrom_TextChanged(object sender, TextChangedEventArgs e)
         {
             findRoomsByFilter();
         }
+
         private void TextBox_priceTo_TextChanged(object sender, TextChangedEventArgs e)
         {
             findRoomsByFilter();
@@ -238,25 +246,38 @@ namespace WpfApp2.Forms.Order
                 if (isAdding)
                     clientsList.Add(client);
             }
+
             DataGrid_clients.ItemsSource = clientsList;
 
             // проверяем, чтобы пользователя с таким паспортом не было, т.к. паспорт должен быть уникален
-            Clients tmp_client = db.Clients.Where(c => c.Passport.Contains(findPassport) ).FirstOr(null);
+            Clients tmp_client = db.Clients.Where(c => c.Passport == findPassport).FirstOr(null);
             if (tmp_client != null && clientsList.Count == 0)
             {
-                Label_statusClients.Content = "Клиент с таким паспортом, но c другими данными, уже существуе";
+                Label_statusClients.Content = "Клиент с таким паспортом, но c другими данными, уже существует";
             }
             else
             {
-                Label_statusClients.Content = "Клиент будет добавлен в базу";
+                Label_statusClients.Content = "Новый клиент будет добавлен в базу";
             }
-            
+
+            // проверяем на полное совпадение
+            Clients selectedItem = (Clients) DataGrid_clients.SelectedItem;
+            if (selectedItem != null &&
+                selectedItem.Passport == TextBox_passport.Text &&
+                selectedItem.FirstName == TextBox_firstName.Text &&
+                selectedItem.SecondName == TextBox_secondName.Text &&
+                selectedItem.Patronymic == TextBox_patronymic.Text &&
+                selectedItem.Phone == TextBox_phone.Text)
+            {
+                Label_statusClients.Content = "Клиент выбран из базы";
+            }
         }
+
         public void updateDataGridClients()
         {
             db = new ApplicationContext();
 
-            clientsList = init_Clients();
+            clientsList = Clients.init_Clients(db);
 
             DataGrid_clients.ItemsSource = clientsList;
 
@@ -290,8 +311,8 @@ namespace WpfApp2.Forms.Order
 
         private void DataGrid_clients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Clients selectedClient = (Clients)DataGrid_clients.SelectedItem;
-            MessageBox.Show("double click #" + selectedClient.Passport);
+            Clients selectedClient = (Clients) DataGrid_clients.SelectedItem;
+            //MessageBox.Show("double click #" + selectedClient.Passport);
 
             Label_statusClients.Content = "Клиент выбран из базы";
 
@@ -300,6 +321,11 @@ namespace WpfApp2.Forms.Order
             TextBox_secondName.Text = selectedClient.SecondName;
             TextBox_patronymic.Text = selectedClient.Patronymic;
             TextBox_phone.Text = selectedClient.Phone;
+        }
+
+        private void Button_confirmOrder_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

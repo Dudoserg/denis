@@ -108,7 +108,7 @@ namespace WpfApp2.Forms.Rooms
             {
                 bool isAdding = true;
 
-                if (findRoomType != null && room.TypeId != findRoomType.Id)
+                if (findRoomType != null && room.RoomTypesId != findRoomType.Id)
                     isAdding = false;
 
                 if (!(find_priceFrom <= room.Price && room.Price <= find_priceTo))

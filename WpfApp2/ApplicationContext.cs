@@ -21,12 +21,14 @@ namespace WpfApp2
         public DbSet<RoomTypes> RoomTypes { get; set; }
         public DbSet<Rooms> Rooms { get; set; }
 
+        public DbSet<Order_entity> Orders { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Rooms>()
-            .HasOptional(p => p.Type)
+            .HasOptional(p => p.RoomTypes)
             .WithMany(b => b.Rooms)
-            .HasForeignKey( r => r.TypeId);
+            .HasForeignKey( r => r.RoomTypesId);
         }
 
         public void kek()
