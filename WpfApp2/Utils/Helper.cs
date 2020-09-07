@@ -9,6 +9,7 @@ namespace WpfApp2.Utils
 {
     class Helper
     {
+        // проверка введенных символов в текстбокс на ЦИФРУ, если не цифра, игнорируем
         public static string removeSymbolIfNotNumber(TextBox textBox, string oldValue, TextChangedEventArgs e)
         {
             string value = textBox.Text;

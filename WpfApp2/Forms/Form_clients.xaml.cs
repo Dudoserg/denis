@@ -138,6 +138,7 @@ namespace WpfApp2.Forms
                 clientsList.Add(client);
             }
             DataGrid_clients.ItemsSource = clientsList;
+            findClient();
         }
 
         private void Button_findClient_click(object sender, RoutedEventArgs e)

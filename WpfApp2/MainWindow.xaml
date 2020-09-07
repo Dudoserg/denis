@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="Отель «Гранд Будапешт»" Height="550" Width="900" MinWidth="900" MinHeight="550" Icon="hotel.ico" >
+        Title="Отель «Гранд Будапешт»" 
+        Height="590" Width="900" 
+        MinHeight="590" MinWidth="900"  
+        Icon="hotel.ico" >
     <Grid>
         <Menu x:Name="Menu" VerticalAlignment="Top" Height="20">
             <!--<MenuItem  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MenuItem_clients_click" >
@@ -50,18 +53,32 @@
             </MenuItem>
         </Menu>
 
-        <Grid>
+        <Grid Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="83*" />
-                <ColumnDefinition Width="400*"/>
+                <ColumnDefinition Width="100*"/>
                 <ColumnDefinition Width="270"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="100*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-            <DataGrid 
+            <Rectangle Grid.Row="0" Grid.ColumnSpan="2"  >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#F0F0F0" Offset="0" />
+                        <!--<GradientStop Color="White" Offset="1" />-->
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Label Content="Заказы" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Height="35" FontWeight="Bold" FontSize="18" Margin="10,0"/>
+
+
+            <DataGrid Grid.Row="1" Grid.Column="0"
             x:Name="DataGrid_orders" 
             ItemsSource="{Binding clientsList}" 
             AutoGenerateColumns="False"
-            Margin="0,20,0,50" Grid.ColumnSpan="2" IsReadOnly="True">
+            Margin="0,0,0,70" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="10*" />
                     <DataGridTextColumn Header="№" Binding="{Binding Path=Rooms.Number}" Width="15*" />
@@ -88,8 +105,14 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <Button Grid.Row="1" Grid.Column="0"
+                x:Name="Button_createOrder" Content="Оформить заказ" 
+                HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" 
+                Width="140" Click="Button_createOrder_click" Height="35" Grid.ColumnSpan="2"
+                />
 
-            <Grid Grid.Column="2"  UseLayoutRounding="False" Margin="0,20,0,0">
+
+            <Grid Grid.Row="1" Grid.Column="1"  UseLayoutRounding="False">
                 <!-- <ScrollViewer Margin="0,20,0,0">
                     <Grid>-->
                 <Grid.RowDefinitions>
@@ -140,8 +163,10 @@
                             <ColumnDefinition Width="50*" />
                             <ColumnDefinition Width="50*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="TextBox_PriceFrom" Grid.Column="0" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_PriceFrom_TextChanged"/>
-                        <TextBox x:Name="TextBox_PriceTo" Grid.Column="1" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_PriceTo_TextChanged"/>
+                        <TextBox x:Name="TextBox_PriceFrom" Grid.Column="0" Height="23" Margin="30,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_PriceFrom_TextChanged"/>
+                        <TextBox x:Name="TextBox_PriceTo" Grid.Column="1" Height="23" Margin="30,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_PriceTo_TextChanged"/>
+                        <Label Content="От" HorizontalAlignment="Left" Margin="2,8,0,0" VerticalAlignment="Top"/>
+                        <Label Content="До" Grid.Column="1" HorizontalAlignment="Left" Margin="0,8,0,0" VerticalAlignment="Top"/>
 
                     </Grid>
                 </Grid>
@@ -184,8 +209,10 @@
                 <!--      </Grid>
                 </ScrollViewer> -->
             </Grid>
-            <Button x:Name="Button_createOrder" Content="Оформить заказ" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="140" Click="Button_createOrder_click" Height="35" Grid.ColumnSpan="2"/>
+
 
         </Grid>
+
+
     </Grid>
 </Window>
