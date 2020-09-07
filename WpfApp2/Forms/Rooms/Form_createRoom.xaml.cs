@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp2.Entity;
 using WpfApp2.Repos;
+using WpfApp2.Utils;
 
 namespace WpfApp2.Forms.Rooms
 {
@@ -22,11 +23,14 @@ namespace WpfApp2.Forms.Rooms
     /// </summary>
     public partial class Form_createRoom : Window
     {
-        ApplicationContext db;
-        List<Entity.Rooms> roomsList;
-        List<Entity.RoomTypes> roomTypesList;
+        private ApplicationContext db;
+        private List<Entity.Rooms> roomsList;
+        private List<Entity.RoomTypes> roomTypesList;
 
-        Entity.Rooms editRoom;
+        private Entity.Rooms editRoom;
+
+        private string text_price = "";
+        private string text_number = "";
 
         public Form_createRoom(Entity.Rooms r)
         {
@@ -98,7 +102,17 @@ namespace WpfApp2.Forms.Rooms
                 MessageBox.Show("Вы не ввели индекс номера");
                 return;
             }
-            
+            using (var db = new ApplicationContext())
+            {
+                db.Rooms.Load();
+                Entity.Rooms r = db.Rooms.Where(rm => rm.Number == number).FirstOrDefault();
+                if (r != null)
+                {
+                    MessageBox.Show("Номер с таким индексом(" + number + ") уже существует");
+                    return;
+                }
+            }
+
             // Type
             RoomTypes roomType = Combobox_roomType.SelectedIndex > -1 ? (RoomTypes)Combobox_roomType.SelectedItem : null;
             if (roomType == null)
@@ -166,9 +180,17 @@ namespace WpfApp2.Forms.Rooms
             this.Close();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
+        private void TextBox_number_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox_number.Text = text_number = Helper.removeSymbolIfNotNumber(TextBox_number, text_number, e);
+            TextBox_number.CaretIndex = TextBox_number.Text.Length;
+        }
+
+        private void TextBox_price_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox_price.Text = text_price = Helper.removeSymbolIfNotNumber(TextBox_price, text_price, e);
+            TextBox_price.CaretIndex = TextBox_price.Text.Length;
         }
     }
 }

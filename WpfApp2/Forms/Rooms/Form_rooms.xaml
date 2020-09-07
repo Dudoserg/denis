@@ -11,22 +11,21 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="83*" />
             <ColumnDefinition Width="511*"/>
-            <ColumnDefinition Width="198*"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="2"  UseLayoutRounding="False">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="10*"></RowDefinition>
-                <RowDefinition  Height="15*"></RowDefinition>
-                <RowDefinition  Height="15*"></RowDefinition>
-                <RowDefinition  Height="15*"></RowDefinition>
-                <RowDefinition  Height="25*"></RowDefinition>
+                <RowDefinition  Height="50"></RowDefinition>
+                <RowDefinition  Height="90"></RowDefinition>
+                <RowDefinition  Height="90"></RowDefinition>
+                <RowDefinition  Height="90"></RowDefinition>
+                <RowDefinition  Height="110"></RowDefinition>
             </Grid.RowDefinitions>
             <Rectangle Grid.Row="0" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Rectangle Grid.Row="1" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Rectangle Grid.Row="2" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Rectangle Grid.Row="3" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
-            <Rectangle Grid.Row="4" Stroke="#FF858585"  VerticalAlignment="Bottom"/>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="10*"></RowDefinition>
@@ -68,10 +67,10 @@
                 <Label x:Name="Label_price" Grid.Row="0" Content="Цена" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center"/>
                 <TextBox x:Name="TextBox_priceFrom" Grid.Row="1" Height="23" Margin="40,7,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_priceFrom_TextChanged"/>
                 <TextBox x:Name="TextBox_priceTo" Grid.Row="1" Height="23" Margin="40,38,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_priceTo_TextChanged"/>
-                <Label x:Name="Label_priceFrom" Grid.Row="1" Content="От" VerticalAlignment="Center" Height="25" HorizontalAlignment="Left" Margin="0,7,0,37"/>
-                <Label x:Name="Label_priceTo" Grid.Row="1" Content="До" VerticalAlignment="Center" Height="25" HorizontalAlignment="Left" Margin="0,38,169,6" RenderTransformOrigin="4.042,0.48" Width="29"/>
+                <Label x:Name="Label_priceFrom" Grid.Row="1" Content="От" VerticalAlignment="Center" Height="25" HorizontalAlignment="Left" Margin="5,5,0,44" RenderTransformOrigin="0.847,0.413"/>
+                <Label x:Name="Label_priceTo" Grid.Row="1" Content="До" VerticalAlignment="Center" Height="25" HorizontalAlignment="Left" Margin="5,36,0,13" RenderTransformOrigin="4.042,0.48" Width="29"/>
             </Grid>
-           <!--
+            <!--
              <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="10*"></RowDefinition>

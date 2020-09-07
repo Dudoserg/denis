@@ -92,6 +92,7 @@
     <Compile Include="Repos\EFGenericRepository.cs" />
     <Compile Include="Repos\IGenericRepository.cs" />
     <Compile Include="Repos\OrderRepos.cs" />
+    <Compile Include="Utils\Helper.cs" />
     <Page Include="Forms\Form_clients.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

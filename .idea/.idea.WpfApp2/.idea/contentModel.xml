@@ -56,6 +56,9 @@
           <e p="IGenericRepository.cs" t="Include" />
           <e p="OrderRepos.cs" t="Include" />
         </e>
+        <e p="Utils" t="Include">
+          <e p="Helper.cs" t="Include" />
+        </e>
         <e p="WpfApp2.csproj" t="IncludeRecursive" />
       </e>
       <e p="WpfApp2.sln" t="IncludeFlat" />

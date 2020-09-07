@@ -12,10 +12,10 @@
         <Label Content="Цена" HorizontalAlignment="Left" Margin="35,140,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="Combobox_roomType" HorizontalAlignment="Left" Margin="150,35,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="Combobox_size" HorizontalAlignment="Left" Margin="150,70,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TextBox_price" HorizontalAlignment="Left" Height="23" Margin="150,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="TextBox_price" HorizontalAlignment="Left" Height="23" Margin="150,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_price_TextChanged"/>
         <Button x:Name="Button_createRoom" Content="Добавить номер" HorizontalAlignment="Left" Margin="35,189,0,0" VerticalAlignment="Top" Width="114" Click="Button_createRoom_click"/>
         <Label x:Name="Label_number" Content="Номер" HorizontalAlignment="Left" Margin="35,105,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_number" HorizontalAlignment="Left" Height="23" Margin="150,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="TextBox_number" HorizontalAlignment="Left" Height="23" Margin="150,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_number_TextChanged"/>
 
     </Grid>
 </Window>

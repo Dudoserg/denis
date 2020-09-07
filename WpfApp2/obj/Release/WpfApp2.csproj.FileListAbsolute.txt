@@ -34,3 +34,4 @@ C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Release\WpfApp2.csproj.CoreCo
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Release\WpfApp2.csproj.CopyComplete
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Release\WpfApp2.exe
 C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Release\WpfApp2.pdb
+C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Release\WpfApp2.csprojAssemblyReference.cache

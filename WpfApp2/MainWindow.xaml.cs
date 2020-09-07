@@ -19,6 +19,7 @@ using WpfApp2.Entity;
 using WpfApp2.Forms;
 using WpfApp2.Forms.Order;
 using WpfApp2.Forms.Rooms;
+using WpfApp2.Utils;
 
 namespace WpfApp2
 {
@@ -27,15 +28,20 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        ApplicationContext db;
+        private ApplicationContext db;
 
-        List<Entity.Rooms> roomsList;
-        List<Entity.RoomTypes> roomTypesList;
-        List<Entity.Clients> clientsList;
-        List<Entity.Order_entity> ordersList;
-        List<Entity.Order_entity> ordersList_table;
+        private List<Entity.Rooms> roomsList;
+        private List<Entity.RoomTypes> roomTypesList;
+        private List<Entity.Clients> clientsList;
+        private List<Entity.Order_entity> ordersList;
+        private List<Entity.Order_entity> ordersList_table;
         
-        string emptyComboBoxItem = "--\\--";
+        private string emptyComboBoxItem = "--\\--";
+        
+        private string text_number = "";
+        private string text_priceFrom = "";
+        private string text_priceTo = "";
+        
         
         public MainWindow()
         {
@@ -213,7 +219,18 @@ namespace WpfApp2
 
         private void Button_resetFilter_click(object sender, RoutedEventArgs e)
         {
+            TextBox_Number.Text = text_number = "";
             
+            ComboBox_Size.SelectedIndex = -1;
+            
+            TextBox_PriceFrom.Text = text_priceFrom = "";
+            
+            TextBox_PriceTo.Text = text_priceTo = "";
+            
+            DatePicker_StartFrom.SelectedDate = null;
+            DatePicker_StartTo.SelectedDate = null;
+            DatePicker_EndFrom.SelectedDate = null;
+            DatePicker_EndTo.SelectedDate = null;
         }
 
         // Дата заселения ОТ
@@ -242,11 +259,17 @@ namespace WpfApp2
 
         private void TextBox_PriceFrom_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox_PriceFrom.Text = text_priceFrom = Helper.removeSymbolIfNotNumber(TextBox_PriceFrom, text_priceFrom, e);
+            TextBox_PriceFrom.CaretIndex = TextBox_PriceFrom.Text.Length;
             findRowsByFilter();
         }
 
+        
+
         private void TextBox_PriceTo_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox_PriceTo.Text = text_priceTo = Helper.removeSymbolIfNotNumber(TextBox_PriceTo, text_priceTo, e);
+            TextBox_PriceTo.CaretIndex = TextBox_PriceTo.Text.Length;
             findRowsByFilter();
         }
 
@@ -259,6 +282,8 @@ namespace WpfApp2
 
         private void TextBox_Number_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox_Number.Text = text_number = Helper.removeSymbolIfNotNumber(TextBox_Number, text_number, e);
+            TextBox_Number.CaretIndex = TextBox_Number.Text.Length;
             findRowsByFilter();
         }
 

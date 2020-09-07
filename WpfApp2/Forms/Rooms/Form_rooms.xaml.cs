@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp2.Entity;
 using WpfApp2.Repos;
+using WpfApp2.Utils;
 
 namespace WpfApp2.Forms.Rooms
 {
@@ -24,12 +26,16 @@ namespace WpfApp2.Forms.Rooms
     /// </summary>
     public partial class Form_rooms : Window
     {
-        ApplicationContext db;
+        private ApplicationContext db;
 
-        List<RoomTypes> roomTypesList;
-        List<Entity.Rooms> roomsList;
-        string emptyComboBoxItem = "--\\--";
+        private List<RoomTypes> roomTypesList;
+        private List<Entity.Rooms> roomsList;
 
+        private string emptyComboBoxItem = "--\\--";
+
+        private string text_roomNumber = "";
+        private string text_priceFrom = "";
+        private string text_priceTo = "";
         public Form_rooms()
         {
             InitializeComponent();
@@ -117,7 +123,7 @@ namespace WpfApp2.Forms.Rooms
                 if (find_size >= 0 && room.Size != find_size)
                     isAdding = false;
 
-                if (find_number >= 0 && find_number != room.Number)
+                if (find_number >= 0 && !room.Number.ToString().Contains(find_number.ToString()))
                     isAdding = false;
 
                 if (isAdding)
@@ -180,10 +186,10 @@ namespace WpfApp2.Forms.Rooms
             ComboBox_roomType.SelectedIndex = -1;
             ComboBox_size.SelectedIndex = -1;
 
-            TextBox_priceFrom.Text = "";
-            TextBox_priceTo.Text = "";
+            TextBox_priceFrom.Text = text_priceFrom = "";
+            TextBox_priceTo.Text = text_priceTo = "";
 
-            TextBox_roomNumber.Text = "";
+            TextBox_roomNumber.Text = text_roomNumber = "";
 
             //ButtonAutomationPeer peer = new ButtonAutomationPeer(Button_findRoom);
             //IInvokeProvider invokeProv = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
@@ -207,16 +213,22 @@ namespace WpfApp2.Forms.Rooms
 
         private void TextBox_roomNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox_roomNumber.Text = text_roomNumber = Helper.removeSymbolIfNotNumber(TextBox_roomNumber, text_roomNumber, e);
+            TextBox_roomNumber.CaretIndex = TextBox_roomNumber.Text.Length;
             findRowsByFilter();
         }
 
         private void TextBox_priceFrom_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox_priceFrom.Text = text_priceFrom = Helper.removeSymbolIfNotNumber(TextBox_priceFrom, text_priceFrom, e);
+            TextBox_priceFrom.CaretIndex = TextBox_priceFrom.Text.Length;
             findRowsByFilter();
         }
 
         private void TextBox_priceTo_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox_priceTo.Text = text_priceTo = Helper.removeSymbolIfNotNumber(TextBox_priceTo, text_priceTo, e);
+            TextBox_priceTo.CaretIndex = TextBox_priceTo.Text.Length;
             findRowsByFilter();
         }
     }

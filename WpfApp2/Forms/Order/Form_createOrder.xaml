@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.Forms.Order"
         mc:Ignorable="d"
-        Title="Оформление заказа" Height="840" Width="800" Icon="hotel.ico" >
+        Title="Оформление заказа" Height="750" Width="800" MinHeight="750" MinWidth="800" Icon="hotel.ico" >
     <Grid>
         <ScrollViewer>
             <Grid>
@@ -65,8 +65,8 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label x:Name="Label_statusClients" Content="..." HorizontalAlignment="Left" Margin="28,271,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="Button_confirmOrder" Content="Подтвердить заказ" HorizontalAlignment="Right" Margin="0,759,10,0" VerticalAlignment="Top" Width="140" Click="Button_confirmOrder_Click" Height="40"/>
-                <Label x:Name="Label_statusMain" Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="Button_confirmOrder" Content="Подтвердить заказ" HorizontalAlignment="Right" Margin="0,759,10,20" VerticalAlignment="Top" Width="140" Click="Button_confirmOrder_Click" Height="40"/>
+                <Label x:Name="Label_statusMain" Content="..." HorizontalAlignment="Left" Margin="294,773,0,0" VerticalAlignment="Top" RenderTransformOrigin="8.889,0.615"/>
 
 
             </Grid>

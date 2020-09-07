@@ -10,7 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="83*" />
             <ColumnDefinition Width="511*"/>
-            <ColumnDefinition Width="198*"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         
         <DataGrid 
@@ -44,12 +44,12 @@
         
         <Grid Grid.Column="2"  UseLayoutRounding="False">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="15*"></RowDefinition>
-                <RowDefinition  Height="20*"></RowDefinition>
-                <RowDefinition  Height="20*"></RowDefinition>
-                <RowDefinition  Height="20*"></RowDefinition>
-                <RowDefinition  Height="20*"></RowDefinition>
-                <RowDefinition  Height="20*"></RowDefinition>
+                <RowDefinition  Height="50"></RowDefinition>
+                <RowDefinition  Height="85"></RowDefinition>
+                <RowDefinition  Height="85"></RowDefinition>
+                <RowDefinition  Height="85"></RowDefinition>
+                <RowDefinition  Height="85"></RowDefinition>
+                <RowDefinition  Height="85"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
