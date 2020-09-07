@@ -20,7 +20,7 @@ LicenseFile=C:\Users\Dudoserg\Desktop\license.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=C:\Users\Dudoserg\Desktop\check
+OutputDir=C:\Users\Dudoserg\source\repos\WpfApp2
 OutputBaseFilename=Hotel
 SetupIconFile=C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\hotel.ico
 Compression=lzma

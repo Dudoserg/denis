@@ -9,5 +9,6 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("db.db")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("diagrams.puml")]
 
 

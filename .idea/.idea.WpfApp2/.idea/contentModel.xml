@@ -14,6 +14,7 @@
         <e p="ApplicationContext.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="db.db" t="Include" />
+        <e p="diagrams.puml" t="Include" />
         <e p="Entity" t="Include">
           <e p="Clients.cs" t="Include" />
           <e p="Order_entity.cs" t="Include" />

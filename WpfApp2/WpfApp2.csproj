@@ -167,6 +167,7 @@
     <Content Include="db.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="diagrams.puml" />
     <Resource Include="Forms\Rooms\hotel.ico" />
     <Resource Include="Forms\Order\hotel.ico" />
     <Resource Include="hotel.ico" />

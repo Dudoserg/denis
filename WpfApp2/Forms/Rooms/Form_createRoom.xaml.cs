@@ -106,7 +106,7 @@ namespace WpfApp2.Forms.Rooms
             {
                 db.Rooms.Load();
                 Entity.Rooms r = db.Rooms.Where(rm => rm.Number == number).FirstOrDefault();
-                if (r != null)
+                if (r != null && r.Id != editRoom.Id)
                 {
                     MessageBox.Show("Номер с таким индексом(" + number + ") уже существует");
                     return;
@@ -134,7 +134,7 @@ namespace WpfApp2.Forms.Rooms
                     {
                         db.Rooms.Load();
                         Entity.Rooms r = db.Rooms.Where(rm => rm.Number == number).FirstOrDefault();
-                        if (r != null)
+                        if (r != null && r.Id != editRoom.Id)
                         {
                             MessageBox.Show("Номер с таким индексом(" + number + ") уже существует");
                             return;
