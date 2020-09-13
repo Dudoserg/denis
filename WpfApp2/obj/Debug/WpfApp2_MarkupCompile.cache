@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\obj\Debug\
+C:\Users\Sergey\source\repos\WpfApp2\WpfApp2\obj\Debug\
 WpfApp2
 none
 false
 DEBUG;TRACE
-C:\Users\Dudoserg\source\repos\WpfApp2\WpfApp2\App.xaml
+C:\Users\Sergey\source\repos\WpfApp2\WpfApp2\App.xaml
 6-350545342
 2408220110
 20-1446873050
-23-736344157
+23-2067407561
 Forms\Form_clients.xaml;Forms\Form_createClient.xaml;Forms\Order\Form_createOrder.xaml;Forms\Rooms\Form_createRoom.xaml;Forms\Rooms\Form_rooms.xaml;MainWindow.xaml;
 
 False

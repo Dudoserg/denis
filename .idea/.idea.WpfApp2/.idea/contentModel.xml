@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Dudoserg\.Rider2019.2\config\consoles\db" t="IncludeRecursive" />
-    <e p="C:\Users\Dudoserg\.Rider2019.2\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\Dudoserg\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Dudoserg\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_WpfApp2.-815619010.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Dudoserg\source\repos\WpfApp2" t="IncludeFlat">
+    <e p="C:\Users\Sergey\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Sergey\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_WpfApp2.1687533990.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Sergey\source\repos\WpfApp2" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="WpfApp2" t="IncludeRecursive">
         <e p="App.config" t="Include" />
@@ -42,7 +40,24 @@
         <e p="hotel.ico" t="Include" />
         <e p="MainWindow.xaml" t="Include" />
         <e p="MainWindow.xaml.cs" t="Include" />
-        <e p="obj" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="App.g.cs" t="Include" />
+            <e p="Forms" t="Include">
+              <e p="Form_clients.g.cs" t="Include" />
+              <e p="Form_createClient.g.cs" t="Include" />
+              <e p="Order" t="Include">
+                <e p="Form_createOrder.g.cs" t="Include" />
+              </e>
+              <e p="Rooms" t="Include">
+                <e p="Form_createRoom.g.cs" t="Include" />
+                <e p="Form_rooms.g.cs" t="Include" />
+              </e>
+            </e>
+            <e p="MainWindow.g.cs" t="Include" />
+            <e p="WpfApp2_Content.g.cs" t="Include" />
+          </e>
+        </e>
         <e p="packages.config" t="Include" />
         <e p="Phone.cs" t="Include" />
         <e p="Properties" t="Include">
